@@ -2,7 +2,10 @@ public class Player {
 
     //Current Room:
 
-    private Room currentRoom;
+    private static Room currentRoom;
+
+    public static void currentRoom() {
+    }
 
     public Room getCurrentRoom() {
         return currentRoom;
@@ -10,6 +13,22 @@ public class Player {
 
     //Move - Direction
 
-    public boolean move;
+    public boolean move(String direction) {
 
+        Room desiredRoom = switch (direction) {
+            case "north" -> currentRoom.getNorth();
+            case "south" -> currentRoom.getSouth();
+            case "east"  -> currentRoom.getEast();
+            case "west"  -> currentRoom.getWest();
+            default -> null;
+        };
+
+        if (desiredRoom != null) {
+            currentRoom = desiredRoom;
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }

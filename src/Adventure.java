@@ -12,11 +12,16 @@ public class Adventure {
         UserInterface ui = new UserInterface();
 
         //GameStart:
+       UserInterface.start();
+
         while(true){
+
+
+
             continue;
-        } if(false){
-            break;
+        } //if(false){
+        //   break;
         }
 
     }
-}
+
