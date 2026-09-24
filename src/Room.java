@@ -1,10 +1,8 @@
 public class Room {
     private String name;
     private String description;
-    private Room north;
-    private Room east;
-    private Room west;
-    private Room south;
+
+    private Room north, south, east, west;
 
     //Constructor:
 
@@ -44,18 +42,18 @@ public class Room {
     //Set Direction:
 
     public void setNorth(Room room){
-        this.north = north;
+        this.north = room;
     }
 
     public void setEast(Room room) {
-        this.east = east;
+        this.east = room;
     }
 
     public void setSouth(Room room) {
-        this.south = south;
+        this.south = room;
     }
 
     public void setWest(Room room) {
-        this.west = west;
+        this.west = room;
     }
 }

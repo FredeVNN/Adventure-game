@@ -1,7 +1,22 @@
 public class Adventure {
-    //map
-    //player
-    //interface
+    static void main() {
 
-    //GameStart:
+        //Map creator:
+
+        Map map = new Map();
+
+        //Player creator:
+        Player player = new Player();
+
+        //User connection:
+        UserInterface ui = new UserInterface();
+
+        //GameStart:
+        while(true){
+            continue;
+        } if(false){
+            break;
+        }
+
+    }
 }

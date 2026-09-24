@@ -4,7 +4,7 @@ public class UserInterface {
     static void main() {
         Scanner scanner = new Scanner(System.in);
 
-        //Welcomin message:
+        //Welcoming message:
 
         System.out.println("* Welcome to 'TIME MAZE' *\n\n"
                 + "It is the year 4,000 BC. You are a caveman out hunting when suddenly—\n"
@@ -15,9 +15,11 @@ public class UserInterface {
                 + "You search for a way out, but the endless tunnels only lead you deeper into the unknown.\n"
                 + "Then you hear a strange humming sound.\n"
                 + "You follow it and discover something impossible - \n\n"
-                + "* (Press ‘enter’ to continue) or (Type 'exit' to close the game) *\n");
+                + "* (Type ‘start’ to continue) or (Type 'exit' to close the game) *\n");
     }
 
 
     //input
+    //Get name+description room
+
 }
