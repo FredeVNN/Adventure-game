@@ -17,7 +17,9 @@ public class Adventure {
 
         //GameStart:
         ui.welcome(player);
-
+        while(running){
+            ui.moveDirection(player);
+        }
     }
 }
 

@@ -22,10 +22,10 @@ public class Room {
     //Get direction:
     public Room getExit(String direction) {
         return switch (direction) {
-            case "north" -> north;
-            case "south" -> south;
-            case "east" -> east;
-            case "west" -> west;
+            case "n" -> north;
+            case "s" -> south;
+            case "e" -> east;
+            case "w" -> west;
             default -> null;
         };
     }

@@ -9,14 +9,14 @@ public class Map {
 
         // Creates Room:
         r1 = new Room("ROOM 01", "THE DARK CAVE", "You find yourself deep inside a massive underground cave, dark and cold.\n" + "Ahead, you can see mysterious portals glowing in the darkness, each leading to an unknown time.");
-        r2 = new Room("ROOM 02", "Atlantis", );
-        r3 = new Room("ROOM 03", "Antarctica");
-        r4 = new Room("ROOM 04", "The Pyramids");
-        r5 = new Room("ROOM 05", "Space Station");
-        r6 = new Room("ROOM 06", "Jungle Temple");
-        r7 = new Room("ROOM 07", "Jurassic World");
-        r8 = new Room("ROOM 08", "Magical Forest");
-        r9 = new Room("ROOM 09", "Futuristic Tokyo");
+        r2 = new Room("ROOM 02", "Atlantis","h" );
+        r3 = new Room("ROOM 03", "Antarctica", "h");
+        r4 = new Room("ROOM 04", "The Pyramids","h");
+        r5 = new Room("ROOM 05", "Space Station","h");
+        r6 = new Room("ROOM 06", "Jungle Temple","h");
+        r7 = new Room("ROOM 07", "Jurassic World","h");
+        r8 = new Room("ROOM 08", "Magical Forest","h");
+        r9 = new Room("ROOM 09", "Futuristic Tokyo","h");
 
         // Connection between Rooms:
         r1.setEast(r2); r1.setSouth(r4);
@@ -44,10 +44,8 @@ public class Map {
         this.startRoom = r1;
     }
     //Constructor:
-    public Room getStartRoom() {
-        return startRoom;
-    }
-    public Room getCurrentRoom(){
-        return getCurrentRoom();
-    }
+    public Room getStartRoom() {return startRoom;}
+   // public Room getCurrentRoom(){
+       // return getCurrentRoom();
+    //}
 }

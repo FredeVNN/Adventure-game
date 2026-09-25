@@ -37,6 +37,18 @@ public class UserInterface {
         System.out.print("[" + room.getName() + "]  ");
         System.out.println(">>> " + room.getDescription() + " <<<");
     }
+    public void moveDirection (Player player){
+        System.out.println("Type 'n' to move north - Type 'e' to move east - Type 's' to move south - Type 'w' to move west");
+        String direction = scanner.nextLine();
+
+        boolean moving = player.move(direction);
+
+        if(moving){
+            rooms(player.getCurrentRoom());
+        } else {
+            System.out.println("You cannot go that way! Choose another path..");
+        }
+    }
 
     public String[] commands = {"start", "exit", "help"};
 
@@ -50,98 +62,5 @@ public class UserInterface {
             }
             System.out.println("\tPlease enter a valid input!\n\t Type 'help' to see all commands");
         }
-    }
-
-    //input
-    //Get name+description room
-
-    public static void printRoom1Title() {
-        printRoomTitle("01", "THE DARK CAVE");
-    }
-
-    public static void printRoom1Description(Map.r1) {
-        printRoomDescription();
-    }
-
-    public static void printRoom2Title() {
-        printRoomTitle("02", "THE SUNKEN ATLANTIS");
-    }
-
-    public static void printRoom2Description() {
-        printRoomDescription(");
-    }
-
-    public static void printRoom3Title() {
-        printRoomTitle("03", "THE FROZEN WASTELAND");
-    }
-
-    public static void printRoom3Description() {
-        printRoomDescription("You end up in a frozen wasteland, surrounded by endless snow and towering walls of ice.\n" +
-                "In the distance, you notice icy gateways rising from the snow, glowing beneath the pale sky.");
-    }
-
-    public static void printRoom4Title() {
-        printRoomTitle("04", "THE ANCIENT PYRAMIDS");
-    }
-
-    public static void printRoom4Description() {
-        printRoomDescription("You emerge inside an ancient pyramid, surrounded by hieroglyphs, statues and flickering torches.\n" +
-                "Between the ancient walls, you discover golden portals covered in mysterious Egyptian symbols.");
-    }
-
-    public static void printRoom5Title() {
-        printRoomTitle("05", "THE SPACE STATION");
-    }
-
-    public static void printRoom5Description() {
-        printRoomDescription("You suddenly appear aboard a massive space station, floating silently above an unknown planet.\n" +
-                "Across the control room, you notice futuristic gateways flickering with strange colours and digital patterns.");
-    }
-
-    public static void printRoom6Title() {
-        printRoomTitle("06", "THE JUNGLE TEMPLE");
-    }
-
-    public static void printRoom6Description() {
-        printRoomDescription("You stumble into a forgotten temple, hidden deep within a wild jungle of vines and ancient ruins.\n" +
-                "Beyond the temple pillars, you spot glowing gateways surrounded by strange carvings and symbols.");
-    }
-
-    public static void printRoom7Title() {
-        printRoomTitle("07", "THE JURASSIC WORLD");
-    }
-
-    public static void printRoom7Description() {
-        printRoomDescription("You step into a prehistoric jungle, where towering trees surround you and dinosaurs roar in the distance.\n" +
-                "Through the thick jungle, you catch sight of shimmering gateways among the ferns.");
-    }
-
-    public static void printRoom8Title() {
-        printRoomTitle("08", "THE ENCHANTED FOREST");
-    }
-
-    public static void printRoom8Description() {
-        printRoomDescription("You wander into an enchanted forest, where glowing plants and strange creatures surround you.\n" +
-                "Between the glowing trees, you discover magical gateways floating among sparkling lights and twisting vines.");
-    }
-
-    public static void printRoom9Title() {
-        printRoomTitle("09", "THE CYBER CITY");
-
-    }
-
-    public static void printRoom9Description() {
-        printRoomDescription("You arrive in a futuristic city, surrounded by neon lights, towering skyscrapers and flying vehicles.\n" +
-                "Above the crowded streets, you spot holographic gateways pulsing with different electric colours.");
-    }
-
-    private static void printRoomTitle(String roomNumber, String roomName) {
-
-        System.out.println("\n[ ROOM " + roomNumber + " ] >> " + roomName + " <<");
-        System.out.println("─".repeat((roomName.length()) + (roomNumber.length()) + 16));
-    }
-
-    private static void printRoomDescription(String roomDescription) {
-        System.out.println("> " + roomDescription);
     }
 }
