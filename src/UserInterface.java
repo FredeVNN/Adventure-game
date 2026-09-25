@@ -3,52 +3,62 @@ import java.util.Scanner;
 public class UserInterface {
 
     private Adventure adventure;
-    //private static Scanner scanner;
 
     public UserInterface() {
         this.adventure = adventure;
     }
 
-    static void start() {
-
-        System.out.println(
-                "\t\t\t\t  Welcome to\n" +
-                        "\t\t\t\t───────────────\n" +
-                        "\t\t\t\t>> TIME MAZE <<\n" +
-                        "\t\t\t\t───────────────");
-
-        System.out.println(
-                "\nIt is the year 4,000 BC. You are a caveman out hunting when suddenly—\n"
-                        + "CRACK!\n"
-                        + "The ground disappears beneath your feet, and you fall into darkness.\n"
-                        + "You find yourself deep inside a massive underground cave. \n"
-                        + "In front of you lies a strange compass. You pick it up. The needle spins wildly.\n"
-                        + "You search for a way out, but the endless tunnels only lead you deeper into the unknown.\n"
-                        + "Then you hear a strange humming sound.\n"
-                        + "You follow it and discover something impossible - \n\n"
-                        + "\t* (Type ‘start’ to continue) or (Type 'exit' to close the game) *\n");
+    public void welcome(Player player) {
+        System.out.println( "\t\t\t\t  Welcome to\n" +
+                "\t\t\t\t───────────────\n" +
+                "\t\t\t\t>> TIME MAZE <<\n" +
+                "\t\t\t\t───────────────");
+        System.out.println("\nIt is the year 4,000 BC. You are a caveman out hunting when suddenly—\n"
+                + "CRACK!\n"
+                + "The ground disappears beneath your feet, and you fall into darkness.\n"
+                + "You find yourself deep inside a massive underground cave. \n"
+                + "In front of you lies a strange compass. You pick it up. The needle spins wildly.\n"
+                + "You search for a way out, but the endless tunnels only lead you deeper into the unknown.\n"
+                + "Then you hear a strange humming sound.\n"
+                + "You follow it and discover something impossible - \n\n"
+                + "\t* (Type ‘start’ to continue) or (Type 'exit' to close the game) *\n");
 
         Scanner scanner = new Scanner(System.in);
         String command = scanner.nextLine().trim().toLowerCase();
 
-        command = scanner.nextLine().trim().toLowerCase();
-
-        do {
-            System.out.println("\tPlease enter a valid input!\n\t* (Type ‘start’ to continue) or (Type 'exit' to close the game) *");
-            command = scanner.nextLine().trim().toLowerCase();
-        }
-        while (!command.equals("start") && !command.equals("exit"));
-        //System.out.println(command);
-
         if (command.equals("start")) {
-            Player.currentRoom();
-
         } else if (command.equals("exit")) {
-            System.out.println("Goodbye!");
-
+            System.out.println("See you next time!");
+            System.exit(0);
+        } else if(!command.equals("start") && !command.equals("exit")){
+            do { System.out.println("\tPlease enter a valid input!\n\t* (Type ‘start’ to continue) or (Type 'exit' to close the game) *");
+                command = scanner.nextLine().trim().toLowerCase();
+            } while (!command.equals("start") && !command.equals("exit"));
         }
     }
+    public void stop(){
+        System.out.println("See you next time!");
+    }
 
+    public void rooms (Room room){
+        System.out.print("[" + room.getName() + "]  ");
+        System.out.println(">>> " + room.getDescription() + " <<<");
+    }
+
+    public String input(){
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Where are we headed to?");
+        System.out.println("Choose n for north, s for south, e for east, w for west:");
+        System.out.println("Type 'exit' to stop the game");
+        return scanner.nextLine().trim().toLowerCase();
+    }
+
+    public void errors(String message){
+        System.out.println("Error: " + message);
+    }
+}
+/*
     //input
     //Get name+description room
     public static void printRoom1Title() {
@@ -142,4 +152,4 @@ public class UserInterface {
     private static void printRoomDescription(String roomDescription) {
         System.out.println("> " + roomDescription);
     }
-}
+}*/

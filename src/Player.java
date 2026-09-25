@@ -1,18 +1,21 @@
 public class Player {
 
     //Current Room:
+    private Room currentRoom;
 
-    private static Room currentRoom;
-
-    public static void currentRoom() {
+    public Player(Room startRoom){
+        this.currentRoom = startRoom;
     }
 
-    public Room getCurrentRoom() {
+    public Room getCurrentRoom(){
         return currentRoom;
     }
 
-    //Move - Direction
+    public void setCurrentRoom(Room room){
+        this.currentRoom = room;
+    }
 
+    //Move - Direction
     public boolean move(String direction) {
 
         Room desiredRoom = switch (direction) {

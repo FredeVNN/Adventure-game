@@ -5,14 +5,12 @@ public class Room {
     private Room north, south, east, west;
 
     //Constructor:
-
     public Room(String name, String description){
         this.name = name;
         this.description = description;
     }
 
     //Get Room info:
-
     public String getName() {
         return name;
     }
@@ -22,25 +20,24 @@ public class Room {
     }
 
     //Get direction:
-
-    public Room getEast() {
-        return east;
+    public Room getExit(String direction) {
+        return switch (direction) {
+            case "north" -> north;
+            case "south" -> south;
+            case "east" -> east;
+            case "west" -> west;
+            default -> null;
+        };
     }
+    public Room getEast() {return east;}
 
-    public Room getNorth() {
-        return north;
-    }
+    public Room getNorth() {return north;}
 
-    public Room getSouth() {
-        return south;
-    }
+    public Room getSouth() {return south;}
 
-    public Room getWest() {
-        return west;
-    }
+    public Room getWest() {return west;}
 
     //Set Direction:
-
     public void setNorth(Room room){
         this.north = room;
     }
@@ -49,9 +46,7 @@ public class Room {
         this.east = room;
     }
 
-    public void setSouth(Room room) {
-        this.south = room;
-    }
+    public void setSouth(Room room) {this.south = room;}
 
     public void setWest(Room room) {
         this.west = room;
