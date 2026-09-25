@@ -23,20 +23,23 @@ public class UserInterface {
                 + "You follow it and discover something impossible - \n\n"
                 + "\t* (Type ‘start’ to continue) or (Type 'exit' to close the game) *\n");
 
-        String userImput = chooseCommand(this.commands);
+        String userInput = chooseCommand(this.commands);
 
-        if (userImput.equalsIgnoreCase("exit")) {
+
+        if (userInput.equalsIgnoreCase("exit")) {
             System.out.println("See you next time!");
             System.exit(0);
-        } else if (userImput.equalsIgnoreCase("start")) {
+        } else if (userInput.equalsIgnoreCase("start")) {
             rooms(player.getCurrentRoom());
         }
     }
 
     public void rooms(Room room) {
-        System.out.print("[" + room.getName() + "]  ");
-        System.out.println(">>> " + room.getDescription() + " <<<");
-    }
+        System.out.println("\n[ " + room.getRoomNum() + " ]" + "\t\t>> " + room.getName() + " <<");
+        System.out.println("─".repeat(room.getRoomNum().length() + room.getName().length() + 15));
+        System.out.println(room.getDescription());
+        }
+
     public void moveDirection (Player player){
         System.out.println("Type 'n' to move north - Type 'e' to move east - Type 's' to move south - Type 'w' to move west");
         String direction = scanner.nextLine();
@@ -60,7 +63,12 @@ public class UserInterface {
                     return commands[i];
                 }
             }
-            System.out.println("\tPlease enter a valid input!\n\t Type 'help' to see all commands");
+            System.out.println("\t* Please enter a valid input! or (Type 'help' to see all commands) *");
         }
     }
+
+
+
+
+
 }
