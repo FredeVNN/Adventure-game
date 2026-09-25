@@ -22,49 +22,45 @@ public class UserInterface {
                 + "Then you hear a strange humming sound.\n"
                 + "You follow it and discover something impossible - \n\n"
                 + "\t* (Type ‘start’ to continue) or (Type 'exit' to close the game) *\n");
-        return
-                ;
-    }
-    public void stop(){
-        if(chooseCommand().equalsIgnoreCase("exit")) {
+
+        String userImput = chooseCommand(this.commands);
+
+        if (userImput.equalsIgnoreCase("exit")) {
             System.out.println("See you next time!");
             System.exit(0);
+        } else if (userImput.equalsIgnoreCase("start")) {
+            rooms(player.getCurrentRoom());
         }
     }
 
-    public void rooms (Room room){
+    public void rooms(Room room) {
         System.out.print("[" + room.getName() + "]  ");
         System.out.println(">>> " + room.getDescription() + " <<<");
     }
 
-    public void errors(String message){
-        System.out.println("Error: " + message);
-    }
-
     public String[] commands = {"start", "exit", "help"};
 
-    private String chooseCommand(String[] commands){
-        while(true){
+    private String chooseCommand(String[] commands) {
+        while (true) {
             String command = scanner.nextLine();
-            for(int i = 0; i < commands.length; i++){
-                if(commands[i].equalsIgnoreCase(command)){
+            for (int i = 0; i < commands.length; i++) {
+                if (commands[i].equalsIgnoreCase(command)) {
                     return commands[i];
                 }
             }
             System.out.println("\tPlease enter a valid input!\n\t Type 'help' to see all commands");
         }
     }
-}
-/*
+
     //input
     //Get name+description room
+
     public static void printRoom1Title() {
         printRoomTitle("01", "THE DARK CAVE");
     }
 
-    public static void printRoom1Description() {
-        printRoomDescription("You find yourself deep inside a massive underground cave, dark and cold.\n" +
-                "Ahead, you can see mysterious portals glowing in the darkness, each leading to an unknown time.");
+    public static void printRoom1Description(Map.r1) {
+        printRoomDescription();
     }
 
     public static void printRoom2Title() {
@@ -72,8 +68,7 @@ public class UserInterface {
     }
 
     public static void printRoom2Description() {
-        printRoomDescription("You suddenly find yourself beneath the ocean, surrounded by the ruins of Atlantis. You can’t breathe!\n" +
-                "Through the murky water, you spot ancient portals shimmering above the sunken city.");
+        printRoomDescription(");
     }
 
     public static void printRoom3Title() {
@@ -149,4 +144,4 @@ public class UserInterface {
     private static void printRoomDescription(String roomDescription) {
         System.out.println("> " + roomDescription);
     }
-}*/
+}

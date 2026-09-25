@@ -8,15 +8,15 @@ public class Map {
     public Map() {
 
         // Creates Room:
-        r1 = new Room("Room 1", "Cave");
-        r2 = new Room("Room 2", "Atlantis");
-        r3 = new Room("Room 3", "Antarctica");
-        r4 = new Room("Room 4", "The Pyramids");
-        r5 = new Room("Room 5", "Space Station");
-        r6 = new Room("Room 6", "Jungle Temple");
-        r7 = new Room("Room 7", "Jurassic World");
-        r8 = new Room("Room 8", "Magical Forest");
-        r9 = new Room("Room 9", "Futuristic Tokyo");
+        r1 = new Room("ROOM 01", "THE DARK CAVE", "You find yourself deep inside a massive underground cave, dark and cold.\n" + "Ahead, you can see mysterious portals glowing in the darkness, each leading to an unknown time.");
+        r2 = new Room("ROOM 02", "Atlantis", );
+        r3 = new Room("ROOM 03", "Antarctica");
+        r4 = new Room("ROOM 04", "The Pyramids");
+        r5 = new Room("ROOM 05", "Space Station");
+        r6 = new Room("ROOM 06", "Jungle Temple");
+        r7 = new Room("ROOM 07", "Jurassic World");
+        r8 = new Room("ROOM 08", "Magical Forest");
+        r9 = new Room("ROOM 09", "Futuristic Tokyo");
 
         // Connection between Rooms:
         r1.setEast(r2); r1.setSouth(r4);

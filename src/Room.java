@@ -1,11 +1,13 @@
 public class Room {
+    private String roomNum;
     private String name;
     private String description;
 
     private Room north, south, east, west;
 
     //Constructor:
-    public Room(String name, String description){
+    public Room(String roomNum, String name, String description){
+        this.roomNum = roomNum;
         this.name = name;
         this.description = description;
     }
@@ -14,6 +16,8 @@ public class Room {
     public String getName() {return name;}
 
     public String getDescription() {return description;}
+
+    public String getRoomNum() {return roomNum;}
 
     //Get direction:
     public Room getExit(String direction) {
