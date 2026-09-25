@@ -2,14 +2,14 @@ import java.util.Scanner;
 
 public class UserInterface {
 
-    private Adventure adventure;
+    private Scanner scanner;
 
     public UserInterface() {
-        this.adventure = adventure;
+        this.scanner = new Scanner(System.in);
     }
 
     public void welcome(Player player) {
-        System.out.println( "\t\t\t\t  Welcome to\n" +
+        System.out.println("\t\t\t\t  Welcome to\n" +
                 "\t\t\t\t───────────────\n" +
                 "\t\t\t\t>> TIME MAZE <<\n" +
                 "\t\t\t\t───────────────");
@@ -22,22 +22,14 @@ public class UserInterface {
                 + "Then you hear a strange humming sound.\n"
                 + "You follow it and discover something impossible - \n\n"
                 + "\t* (Type ‘start’ to continue) or (Type 'exit' to close the game) *\n");
-
-        Scanner scanner = new Scanner(System.in);
-        String command = scanner.nextLine().trim().toLowerCase();
-
-        if (command.equals("start")) {
-        } else if (command.equals("exit")) {
-            System.out.println("See you next time!");
-            System.exit(0);
-        } else if(!command.equals("start") && !command.equals("exit")){
-            do { System.out.println("\tPlease enter a valid input!\n\t* (Type ‘start’ to continue) or (Type 'exit' to close the game) *");
-                command = scanner.nextLine().trim().toLowerCase();
-            } while (!command.equals("start") && !command.equals("exit"));
-        }
+        return
+                ;
     }
     public void stop(){
-        System.out.println("See you next time!");
+        if(chooseCommand().equalsIgnoreCase("exit")) {
+            System.out.println("See you next time!");
+            System.exit(0);
+        }
     }
 
     public void rooms (Room room){
@@ -45,17 +37,22 @@ public class UserInterface {
         System.out.println(">>> " + room.getDescription() + " <<<");
     }
 
-    public String input(){
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Where are we headed to?");
-        System.out.println("Choose n for north, s for south, e for east, w for west:");
-        System.out.println("Type 'exit' to stop the game");
-        return scanner.nextLine().trim().toLowerCase();
-    }
-
     public void errors(String message){
         System.out.println("Error: " + message);
+    }
+
+    public String[] commands = {"start", "exit", "help"};
+
+    private String chooseCommand(String[] commands){
+        while(true){
+            String command = scanner.nextLine();
+            for(int i = 0; i < commands.length; i++){
+                if(commands[i].equalsIgnoreCase(command)){
+                    return commands[i];
+                }
+            }
+            System.out.println("\tPlease enter a valid input!\n\t Type 'help' to see all commands");
+        }
     }
 }
 /*

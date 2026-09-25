@@ -11,13 +11,9 @@ public class Room {
     }
 
     //Get Room info:
-    public String getName() {
-        return name;
-    }
+    public String getName() {return name;}
 
-    public String getDescription() {
-        return description;
-    }
+    public String getDescription() {return description;}
 
     //Get direction:
     public Room getExit(String direction) {
@@ -29,14 +25,6 @@ public class Room {
             default -> null;
         };
     }
-    public Room getEast() {return east;}
-
-    public Room getNorth() {return north;}
-
-    public Room getSouth() {return south;}
-
-    public Room getWest() {return west;}
-
     //Set Direction:
     public void setNorth(Room room){
         this.north = room;
