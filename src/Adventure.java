@@ -31,7 +31,7 @@ public class Adventure {
                 if (nextRoom != null){
                     player.setCurrentRoom(nextRoom);
                 } else {
-                    ui.errors("You got send back! You cannot go that way");
+                    ui.errors("You got send back! You cannot go that way...");
                 }
             } else {
                 ui.errors("I dont recognise that command!");

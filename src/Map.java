@@ -15,7 +15,7 @@ public class Map {
         r5 = new Room("Room 5", "Space Station");
         r6 = new Room("Room 6", "Jungle Temple");
         r7 = new Room("Room 7", "Jurassic World");
-        r8 = new Room("Room 8", "Magical Forrest");
+        r8 = new Room("Room 8", "Magical Forest");
         r9 = new Room("Room 9", "Futuristic Tokyo");
 
         // Connection between Rooms:
@@ -29,7 +29,7 @@ public class Map {
         r8.setWest(r7); r8.setEast(r9); r8.setNorth(r5);
         r9.setNorth(r6); r9.setWest(r8);
 
-        // Wrong direction
+        // Wrong direction:
         r1.setWest(null); r1.setNorth(null);
         r2.setNorth(null); r2.setSouth(null);
         r3.setNorth(null); r3.setEast(null);
