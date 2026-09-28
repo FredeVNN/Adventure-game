@@ -19,15 +19,26 @@ public class UserInterface {
                 + "Then you hear a strange humming sound.\n"
                 + "You follow it and discover something impossible - \n\n"
                 + "\t* Type: ‘start’ to continue or 'exit' to close the game *\n");
-
+        //læser brugerens input af de tilgængelige kommandoer
         String userInput = chooseCommand(this.commands);
-
 
         if (userInput.equalsIgnoreCase("exit")) {
             System.out.println("See you next time!");
             System.exit(0);
         } else if (userInput.equalsIgnoreCase("start")) {
             rooms(player.getCurrentRoom());
+        }
+
+        if (userInput.equalsIgnoreCase("help")) {
+            System.out.println("");
+        }
+        if (userInput.equalsIgnoreCase("inventory")) {
+            for () {
+
+            }
+        }
+        if (userInput.equalsIgnoreCase("take")) {
+            System.out.println();
         }
     }
 
@@ -50,7 +61,7 @@ public class UserInterface {
         }
     }
 
-    public String[] commands = {"start", "exit", "help"};
+    public String[] commands = {"start", "exit", "help", "inventory", "take"};
 
     private String chooseCommand(String[] commands) {
         while (true) {
@@ -63,10 +74,4 @@ public class UserInterface {
             System.out.println("\t* Please enter a valid input! or (Type 'help' to see all commands) *");
         }
     }
-
-
-
-
-
-
 }

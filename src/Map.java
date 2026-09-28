@@ -35,6 +35,19 @@ public class Map {
         r7.getItems().add(dinoBone);
         r8.getItems().add(amor);
 
+        //Find items
+        String[] itemNames = {"knife", "yeti", "scubaGear", "armor", "dinoBone", "spaceSuit"};
+        for (String itemName : itemNames) {
+            Item foundItem = r1.findItemByName(itemName);
+
+            if (foundItem != null) {
+                System.out.println("Found in inventory" + foundItem.getItemName() + foundItem.getItemDescription());
+            }
+            else {
+                System.out.println(itemName + "Was not found in inventory");
+            }
+        }
+
         // Connection between Rooms:
         r1.setEast(r2); r1.setSouth(r4);
         r2.setWest(r1); r2.setEast(r3);
@@ -60,6 +73,7 @@ public class Map {
         // Start Room:
         this.startRoom = r1;
     }
+
 
     // Constructor:
     public Room getStartRoom() {

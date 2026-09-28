@@ -68,10 +68,12 @@ public class Room {
 
     // Search for items:
     public Item findItemByName(String itemName) {
-        Item found = null;
 
-        for (int i = 0; i < items.size(); i++) {
-            System.out.println(itemName + );
+        for (Item item: items) {
+            if (item.getItemName().equalsIgnoreCase(itemName)) {
+                return item;
+            }
         }
+        return null;
     }
 }

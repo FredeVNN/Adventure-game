@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 public class Player {
 
     //Current Room:
@@ -23,4 +24,7 @@ public class Player {
             return false;
         }
     }
+    //Create Inventory
+    ArrayList<Item> inventory = new ArrayList<>();
+
 }
