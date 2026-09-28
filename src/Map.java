@@ -2,21 +2,38 @@ import java.util.ArrayList;
 
 public class Map {
 
-        // Variables declaration:
-        private Room startRoom;
-        private Room r1, r2, r3, r4, r5, r6, r7, r8, r9;
-        public Map() {
+    // Variables declaration:
+    private Room startRoom;
+    private Room r1, r2, r3, r4, r5, r6, r7, r8, r9;
+
+    public Map() {
 
         // Creates Room:
         r1 = new Room("ROOM 01", "THE DARK CAVE", "You find yourself deep inside a massive underground cave, dark and cold.\nAhead, you can see mysterious portals glowing in the darkness, each leading to an unknown time.");
         r2 = new Room("ROOM 02", "THE SUNKEN ATLANTIS", "You suddenly find yourself beneath the ocean, surrounded by the ruins of Atlantis.\nThrough the murky water, you spot ancient portals shimmering above the sunken city.");
         r3 = new Room("ROOM 03", "THE FROZEN WASTELAND", "You end up in a frozen wasteland, surrounded by endless snow and towering walls of ice.\nIn the distance, you notice icy gateways rising from the snow, glowing beneath the pale sky.");
-        r4 = new Room("ROOM 04", "THE ANCIENT PYRAMIDS","You emerge inside an ancient pyramid, surrounded by hieroglyphs, statues and flickering torches.\nBetween the ancient walls, you discover golden portals covered in mysterious Egyptian symbols.");
-        r5 = new Room("ROOM 05", "THE SPACE STATION","You suddenly appear aboard a massive space station, floating silently above an unknown planet.\nAcross the control room, you notice futuristic gateways flickering with strange colours and digital patterns.");
-        r6 = new Room("ROOM 06", "THE JUNGLE TEMPLE","You stumble into a forgotten temple, hidden deep within a wild jungle of vines and ancient ruins.\nBeyond the temple pillars, you spot glowing gateways surrounded by strange carvings and symbols.");
-        r7 = new Room("ROOM 07", "THE JURASSIC WORLD","You step into a prehistoric jungle, where towering trees surround you and dinosaurs roar in the distance.\nThrough the thick jungle, you catch sight of shimmering gateways among the ferns.");
-        r8 = new Room("ROOM 08", "THE ENCHANTED FOREST","You wander into an enchanted forest, where glowing plants and strange creatures surround you.\nBetween the glowing trees, you discover magical gateways floating among sparkling lights and twisting vines.");
-        r9 = new Room("ROOM 09", "THE CYBER CITY","You arrive in a futuristic city, surrounded by neon lights, towering skyscrapers and flying vehicles\nAbove the crowded streets, you spot holographic gateways pulsing with different electric colours.");
+        r4 = new Room("ROOM 04", "THE ANCIENT PYRAMIDS", "You emerge inside an ancient pyramid, surrounded by hieroglyphs, statues and flickering torches.\nBetween the ancient walls, you discover golden portals covered in mysterious Egyptian symbols.");
+        r5 = new Room("ROOM 05", "THE SPACE STATION", "You suddenly appear aboard a massive space station, floating silently above an unknown planet.\nAcross the control room, you notice futuristic gateways flickering with strange colours and digital patterns.");
+        r6 = new Room("ROOM 06", "THE JUNGLE TEMPLE", "You stumble into a forgotten temple, hidden deep within a wild jungle of vines and ancient ruins.\nBeyond the temple pillars, you spot glowing gateways surrounded by strange carvings and symbols.");
+        r7 = new Room("ROOM 07", "THE JURASSIC WORLD", "You step into a prehistoric jungle, where towering trees surround you and dinosaurs roar in the distance.\nThrough the thick jungle, you catch sight of shimmering gateways among the ferns.");
+        r8 = new Room("ROOM 08", "THE ENCHANTED FOREST", "You wander into an enchanted forest, where glowing plants and strange creatures surround you.\nBetween the glowing trees, you discover magical gateways floating among sparkling lights and twisting vines.");
+        r9 = new Room("ROOM 09", "THE CYBER CITY", "You arrive in a futuristic city, surrounded by neon lights, towering skyscrapers and flying vehicles\nAbove the crowded streets, you spot holographic gateways pulsing with different electric colours.");
+
+        //Create items:
+        Item knife = new Item("knife", "kill enemies");
+        Item yeti = new Item("yeti", "he will protect you");
+        Item subaGear = new Item("scubagear", "breathe under water");
+        Item amor = new Item("amour", "gives you health");
+        Item dinoBone = new Item("dino bone", "what does this do?");
+        Item spaceSuit = new Item("Spaces siut", "will help you in space");
+
+        // Add items to room:
+        r2.getItems().add(subaGear);
+        r3.getItems().add(yeti);
+        r4.getItems().add(knife);
+        r5.getItems().add(spaceSuit);
+        r7.getItems().add(dinoBone);
+        r8.getItems().add(amor);
 
         // Connection between Rooms:
         r1.setEast(r2); r1.setSouth(r4);
@@ -43,22 +60,9 @@ public class Map {
         // Start Room:
         this.startRoom = r1;
     }
-        // Constructor:
-        public Room getStartRoom() {return startRoom;}
 
-        //Create items:
-        Item knife = new Item("knife", "kill enemies");
-        Item yeti = new Item("yeti", "he will protect you");
-        Item subaGear = new Item("scubagear", "breathe under water");
-        Item amor = new Item("amour", "gives you health");
-        Item dinoBone = new Item("dino bone", "what does this do?");
-        Item spaceSuit = new Item("Spaces siut", "will help you in space");
-
-    // Add items to room:
-        r1.getItems().add(knife) {
-}
-
-
-
-
+    // Constructor:
+    public Room getStartRoom() {
+        return startRoom;
+    }
 }
