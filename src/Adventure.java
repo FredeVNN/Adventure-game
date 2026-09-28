@@ -15,9 +15,10 @@ public class Adventure {
         //Runningtime:
         boolean running = true;
 
+
         //GameStart:
-        ui.welcome(player);
-        while (running){ ui.moveDirection(player); }
+        ui.welcome();
+        while (running){ ui.handleCommand(player); }
     }
 }
 

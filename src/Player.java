@@ -27,4 +27,10 @@ public class Player {
     //Create Inventory
     ArrayList<Item> inventory = new ArrayList<>();
 
+    public ArrayList<Item> getInventory() {
+        return inventory;
+    }
+    public void addToInventory(Item item) {
+        inventory.add(item);
+    }
 }

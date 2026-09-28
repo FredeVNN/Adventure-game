@@ -22,31 +22,34 @@ public class Map {
         //Create items:
         Item knife = new Item("knife", "kill enemies");
         Item yeti = new Item("yeti", "he will protect you");
-        Item subaGear = new Item("scubagear", "breathe under water");
-        Item amor = new Item("amour", "gives you health");
+        Item scubaGear = new Item("scubagear", "breathe under water");
+        Item armor = new Item("amour", "gives you health");
         Item dinoBone = new Item("dino bone", "what does this do?");
         Item spaceSuit = new Item("Spaces siut", "will help you in space");
 
         // Add items to room:
-        r2.getItems().add(subaGear);
+        r2.getItems().add(scubaGear);
         r3.getItems().add(yeti);
         r4.getItems().add(knife);
         r5.getItems().add(spaceSuit);
         r7.getItems().add(dinoBone);
-        r8.getItems().add(amor);
+        r8.getItems().add(armor);
 
-        //Find items
-        String[] itemNames = {"knife", "yeti", "scubaGear", "armor", "dinoBone", "spaceSuit"};
-        for (String itemName : itemNames) {
-            Item foundItem = r1.findItemByName(itemName);
 
-            if (foundItem != null) {
-                System.out.println("Found in inventory" + foundItem.getItemName() + foundItem.getItemDescription());
-            }
-            else {
-                System.out.println(itemName + "Was not found in inventory");
-            }
-        }
+        //Find items test
+        //String[] itemNames = {"knife", "yeti", "scubaGear", "armor", "dinoBone", "spaceSuit"};
+        //for (String itemName : itemNames) {
+            //Item foundItem = r1.findItemByName(itemName);
+
+            //if (foundItem != null) {
+                //System.out.println("Found in inventory" + foundItem.getItemName() + foundItem.getItemDescription());
+            //}
+            //else {
+             //   System.out.println(itemName + "Was not found in inventory");
+            //}
+        //}
+
+
 
         // Connection between Rooms:
         r1.setEast(r2); r1.setSouth(r4);

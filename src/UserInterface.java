@@ -8,7 +8,8 @@ public class UserInterface {
         this.scanner = new Scanner(System.in);
     }
 
-    public void welcome(Player player) {
+    //prints welcome message
+    public void welcome() {
         System.out.println("\t\t\t\t  Welcome to\n" + "\t\t\t\t───────────────\n" + "\t\t\t\t>> TIME MAZE <<\n" + "\t\t\t\t───────────────");
         System.out.println("\nIt is the year 4,000 BC. You are a caveman out hunting when suddenly—\n"
                 + ">>>CRACK<<<\n"
@@ -18,60 +19,79 @@ public class UserInterface {
                 + "You search for a way out, but the endless tunnels only lead you deeper into the unknown.\n"
                 + "Then you hear a strange humming sound.\n"
                 + "You follow it and discover something impossible - \n\n"
-                + "\t* Type: ‘start’ to continue or 'exit' to close the game *\n");
-        //læser brugerens input af de tilgængelige kommandoer
-        String userInput = chooseCommand(this.commands);
+                + "\t* Type: ‘start’ to continue or 'exit' to close the game *\n"
+                + "\t* Type: 'help' to see available commands");
 
-        if (userInput.equalsIgnoreCase("exit")) {
-            System.out.println("See you next time!");
-            System.exit(0);
-        } else if (userInput.equalsIgnoreCase("start")) {
-            rooms(player.getCurrentRoom());
-        }
-
-        if (userInput.equalsIgnoreCase("help")) {
-            System.out.println("");
-        }
-        if (userInput.equalsIgnoreCase("inventory")) {
-            for () {
-
-            }
-        }
-        if (userInput.equalsIgnoreCase("take")) {
-            System.out.println();
-        }
     }
 
     public void rooms(Room room) {
         System.out.println("\n[ " + room.getRoomNum() + " ]" + "\t\t>> " + room.getName() + " <<");
         System.out.println("─".repeat(room.getRoomNum().length() + room.getName().length() + 15));
         System.out.println(room.getDescription());
-        }
+    }
 
-    public void moveDirection (Player player){
+    //Handles commands
+    public void handleCommand(Player player) {
         System.out.println("\n\t* Type: 'n' to move north - 'e' to move east - 's' to move south - 'w' to move west");
-        String direction = scanner.nextLine();
+        String command = scanner.nextLine().toLowerCase();
+        //available commands
+        switch (command) {
+            case "start" -> rooms(player.getCurrentRoom());
+            case "n", "e", "s", "w" -> moveDirection(player, command);
+            case "inventory" -> showInventory(player);
+            case "help" -> showHelp();
+            case "exit" -> {
+                System.out.println("See you next time!");
+                System.exit(0);
+            }
+            default -> System.out.println("\t* Please enter a valid input! or (Type 'help' to see all commands) *");
+        }
+    }
+
+    //shows direction moved
+    public void moveDirection(Player player, String direction) {
 
         boolean moving = player.move(direction);
 
-        if(moving){
-            rooms(player.getCurrentRoom());
-        } else {
-            System.out.println("You cannot go that way! Choose another path..");
+        if (moving) {
+            Room currentRoom = player.getCurrentRoom();
+            rooms(currentRoom);
+
+            if (currentRoom.getRoomNum().equals("ROOM 05")) {
+                System.out.println("\nCongratulations!");
+                System.out.println("You reached the final room.");
+                System.out.println("Thanks for playing!");
+                System.exit(0);
+            }
+        }
+        else {
+            System.out.println("You cannot go that way! Choose another path.");
+        }
+    }
+    //Shows inventory
+    public void showInventory(Player player) {
+        System.out.println("Inventory:");
+
+        if (player.getInventory().isEmpty()) {
+            System.out.println("- empty");
+            return;
+        }
+        for (Item item : player.getInventory()) {
+            System.out.println("- " + item.getItemName());
         }
     }
 
-    public String[] commands = {"start", "exit", "help", "inventory", "take"};
-
-    private String chooseCommand(String[] commands) {
-        while (true) {
-            String command = scanner.nextLine();
-            for (int i = 0; i < commands.length; i++) {
-                if (commands[i].equalsIgnoreCase(command)) {
-                    return commands[i];
-                }
-            }
-            System.out.println("\t* Please enter a valid input! or (Type 'help' to see all commands) *");
-        }
+    //Showhelp - list of commands
+    public void showHelp() {
+        System.out.println("\nAvailable commands:");
+        System.out.println("- start       Start the game");
+        System.out.println("- n           Move north");
+        System.out.println("- e           Move east");
+        System.out.println("- s           Move south");
+        System.out.println("- w           Move west");
+        System.out.println("- inventory   See your inventory");
+        System.out.println("- help        Show all commands");
+        System.out.println("- exit        Close the game");
     }
 }
+
