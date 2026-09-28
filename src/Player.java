@@ -3,11 +3,11 @@ public class Player {
     //Current Room:
     private Room currentRoom;
 
-    public Player(Room startRoom){
+    public Player(Room startRoom) {
         this.currentRoom = startRoom;
     }
 
-    public Room getCurrentRoom(){
+    public Room getCurrentRoom() {
         return currentRoom;
     }
 
@@ -19,8 +19,7 @@ public class Player {
         if (desiredRoom != null) {
             currentRoom = desiredRoom;
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }

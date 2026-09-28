@@ -9,19 +9,16 @@ public class UserInterface {
     }
 
     public void welcome(Player player) {
-        System.out.println("\t\t\t\t  Welcome to\n" +
-                "\t\t\t\t───────────────\n" +
-                "\t\t\t\t>> TIME MAZE <<\n" +
-                "\t\t\t\t───────────────");
+        System.out.println("\t\t\t\t  Welcome to\n" + "\t\t\t\t───────────────\n" + "\t\t\t\t>> TIME MAZE <<\n" + "\t\t\t\t───────────────");
         System.out.println("\nIt is the year 4,000 BC. You are a caveman out hunting when suddenly—\n"
-                + "CRACK!\n"
+                + ">>>CRACK<<<\n"
                 + "The ground disappears beneath your feet, and you fall into darkness.\n"
                 + "You find yourself deep inside a massive underground cave. \n"
                 + "In front of you lies a strange compass. You pick it up. The needle spins wildly.\n"
                 + "You search for a way out, but the endless tunnels only lead you deeper into the unknown.\n"
                 + "Then you hear a strange humming sound.\n"
                 + "You follow it and discover something impossible - \n\n"
-                + "\t* (Type ‘start’ to continue) or (Type 'exit' to close the game) *\n");
+                + "\t* Type: ‘start’ to continue or 'exit' to close the game *\n");
 
         String userInput = chooseCommand(this.commands);
 
@@ -41,7 +38,7 @@ public class UserInterface {
         }
 
     public void moveDirection (Player player){
-        System.out.println("Type 'n' to move north - Type 'e' to move east - Type 's' to move south - Type 'w' to move west");
+        System.out.println("\n\t* Type: 'n' to move north - 'e' to move east - 's' to move south - 'w' to move west");
         String direction = scanner.nextLine();
 
         boolean moving = player.move(direction);

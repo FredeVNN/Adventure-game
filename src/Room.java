@@ -1,21 +1,25 @@
+import java.util.ArrayList;
+
 public class Room {
     private String roomNum;
-    private String name;
-    private String description;
+    private String roomName;
+    private String roomDescription;
+    private ArrayList<Item> items;
 
     private Room north, south, east, west;
 
     //Constructor:
     public Room(String roomNum, String name, String description){
         this.roomNum = roomNum;
-        this.name = name;
-        this.description = description;
+        this.roomName = name;
+        this.roomDescription = description;
+        this.items = new ArrayList<>();
     }
 
     //Get Room info:
-    public String getName() {return name;}
+    public String getName() {return roomName;}
 
-    public String getDescription() {return description;}
+    public String getDescription() {return roomName;}
 
     public String getRoomNum() {return roomNum;}
 
@@ -42,5 +46,15 @@ public class Room {
 
     public void setWest(Room room) {
         this.west = room;
+    }
+
+    //Add items:
+
+
+    public ArrayList<Item> getItems() {
+        return items;
+    }
+    public void addItem(Item item) {
+        items.add(item);
     }
 }

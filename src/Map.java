@@ -1,10 +1,11 @@
+import java.util.ArrayList;
+
 public class Map {
 
-    // Variables declaration:
-    private Room startRoom;
-    private Room r1, r2, r3, r4, r5, r6, r7, r8, r9;
-
-    public Map() {
+        // Variables declaration:
+        private Room startRoom;
+        private Room r1, r2, r3, r4, r5, r6, r7, r8, r9;
+        public Map() {
 
         // Creates Room:
         r1 = new Room("ROOM 01", "THE DARK CAVE", "You find yourself deep inside a massive underground cave, dark and cold.\nAhead, you can see mysterious portals glowing in the darkness, each leading to an unknown time.");
@@ -42,8 +43,22 @@ public class Map {
         // Start Room:
         this.startRoom = r1;
     }
-    //Constructor:
-    public Room getStartRoom() {
-        return startRoom;
-    }
+        // Constructor:
+        public Room getStartRoom() {return startRoom;}
+
+        //Create items:
+        Item knife = new Item("knife", "kill enemies");
+        Item yeti = new Item("yeti", "he will protect you");
+        Item subaGear = new Item("scubagear", "breathe under water");
+        Item amor = new Item("amour", "gives you health");
+        Item dinoBone = new Item("dino bone", "what does this do?");
+        Item spaceSuit = new Item("Spaces siut", "will help you in space");
+
+    // Add items to room:
+        r1.getItems().add(knife) {
+}
+
+
+
+
 }
