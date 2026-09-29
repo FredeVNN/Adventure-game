@@ -8,50 +8,18 @@ public class Map {
 
     public Map() {
 
-        // Creates Room:
-        r1 = new Room("ROOM 01", "THE DARK CAVE", "You find yourself deep inside a massive underground cave, dark and cold.\nAhead, you can see mysterious portals glowing in the darkness, each leading to an unknown time.");
-        r2 = new Room("ROOM 02", "THE SUNKEN ATLANTIS", "You suddenly find yourself beneath the ocean, surrounded by the ruins of Atlantis.\nThrough the murky water, you spot ancient portals shimmering above the sunken city.");
-        r3 = new Room("ROOM 03", "THE FROZEN WASTELAND", "You end up in a frozen wasteland, surrounded by endless snow and towering walls of ice.\nIn the distance, you notice icy gateways rising from the snow, glowing beneath the pale sky.");
-        r4 = new Room("ROOM 04", "THE ANCIENT PYRAMIDS", "You emerge inside an ancient pyramid, surrounded by hieroglyphs, statues and flickering torches.\nBetween the ancient walls, you discover golden portals covered in mysterious Egyptian symbols.");
-        r5 = new Room("ROOM 05", "THE SPACE STATION", "You suddenly appear aboard a massive space station, floating silently above an unknown planet.\nAcross the control room, you notice futuristic gateways flickering with strange colours and digital patterns.");
-        r6 = new Room("ROOM 06", "THE JUNGLE TEMPLE", "You stumble into a forgotten temple, hidden deep within a wild jungle of vines and ancient ruins.\nBeyond the temple pillars, you spot glowing gateways surrounded by strange carvings and symbols.");
-        r7 = new Room("ROOM 07", "THE JURASSIC WORLD", "You step into a prehistoric jungle, where towering trees surround you and dinosaurs roar in the distance.\nThrough the thick jungle, you catch sight of shimmering gateways among the ferns.");
-        r8 = new Room("ROOM 08", "THE ENCHANTED FOREST", "You wander into an enchanted forest, where glowing plants and strange creatures surround you.\nBetween the glowing trees, you discover magical gateways floating among sparkling lights and twisting vines.");
-        r9 = new Room("ROOM 09", "THE CYBER CITY", "You arrive in a futuristic city, surrounded by neon lights, towering skyscrapers and flying vehicles\nAbove the crowded streets, you spot holographic gateways pulsing with different electric colours.");
+    // Create Rooms:
+        r1 = new Room("ROOM 01", "THE DARK CAVE", "You find yourself deep inside a massive underground cave, dark and cold.");
+        r2 = new Room("ROOM 02", "THE SUNKEN ATLANTIS", "You suddenly find yourself beneath the ocean, surrounded by the ruins of Atlantis.");
+        r3 = new Room("ROOM 03", "THE FROZEN WASTELAND", "You end up in a frozen wasteland, surrounded by endless snow and towering walls of ice.");
+        r4 = new Room("ROOM 04", "THE ANCIENT PYRAMIDS", "You emerge inside an ancient pyramid, surrounded by hieroglyphs, statues and flickering torches.");
+        r5 = new Room("ROOM 05", "THE SPACE STATION", "You suddenly appear aboard a massive space station, floating silently above an unknown planet.");
+        r6 = new Room("ROOM 06", "THE JUNGLE TEMPLE", "You stumble into a forgotten temple, hidden deep within a wild jungle of vines and ancient ruins.");
+        r7 = new Room("ROOM 07", "THE JURASSIC WORLD", "You step into a prehistoric jungle, where towering trees surround you and dinosaurs roar in the distance.");
+        r8 = new Room("ROOM 08", "THE ENCHANTED FOREST", "You wander into an enchanted forest, where glowing plants and strange creatures surround you.");
+        r9 = new Room("ROOM 09", "THE CYBER CITY", "You arrive in a futuristic city, surrounded by neon lights, towering skyscrapers and flying vehicles");
 
-        //Create items:
-        Item knife = new Item("knife", "kill enemies");
-        Item yeti = new Item("yeti", "he will protect you");
-        Item scubaGear = new Item("scubagear", "breathe under water");
-        Item armor = new Item("amour", "gives you health");
-        Item dinoBone = new Item("dino bone", "what does this do?");
-        Item spaceSuit = new Item("Spaces siut", "will help you in space");
-
-        // Add items to room:
-        r2.addItem(scubaGear);
-        r3.addItem(yeti);
-        r4.addItem(knife);
-        r5.addItem(spaceSuit);
-        r7.addItem(dinoBone);
-        r8.addItem(armor);
-
-
-        //Find items test
-        //String[] itemNames = {"knife", "yeti", "scubaGear", "armor", "dinoBone", "spaceSuit"};
-        //for (String itemName : itemNames) {
-            //Item foundItem = r1.findItemByName(itemName);
-
-            //if (foundItem != null) {
-                //System.out.println("Found in inventory" + foundItem.getItemName() + foundItem.getItemDescription());
-            //}
-            //else {
-             //   System.out.println(itemName + "Was not found in inventory");
-            //}
-        //}
-
-
-
-        // Connection between Rooms:
+    // Connection between Rooms:
         r1.setEast(r2); r1.setSouth(r4);
         r2.setWest(r1); r2.setEast(r3);
         r3.setWest(r2); r3.setSouth(r6);
@@ -62,7 +30,7 @@ public class Map {
         r8.setWest(r7); r8.setEast(r9); r8.setNorth(r5);
         r9.setNorth(r6); r9.setWest(r8);
 
-        // Wrong direction:
+    // Wrong directions:
         r1.setWest(null); r1.setNorth(null);
         r2.setNorth(null); r2.setSouth(null);
         r3.setNorth(null); r3.setEast(null);
@@ -73,10 +41,25 @@ public class Map {
         r8.setSouth(null);
         r9.setEast(null); r9.setSouth(null);
 
-        // Start Room:
+    // Start Room:
         this.startRoom = r1;
-    }
 
+    // Create Items:
+        Item sword = new Item("Pharaoh’s Sword", "Wield this to slay your enemies.");
+        Item yeti = new Item(" A friendly Yeti", "This gentle giant will help protect you.");
+        Item scubaGear = new Item("Scuba gear", "Use this to dive and breathe underwater.");
+        Item armor = new Item("Warrior’s Armor", "This grants you strength and boosts your health.");
+        Item dinoBone = new Item("A dinosaur bone", "This is probably useless...");
+        Item spaceSuit = new Item("Spaces suit", "Wear this to survive in space.");
+
+    // Add Items to Rooms:
+        r2.addItem(scubaGear);
+        r3.addItem(yeti);
+        r4.addItem(sword);
+        r5.addItem(spaceSuit);
+        r7.addItem(dinoBone);
+        r8.addItem(armor);
+    }
 
     // Constructor:
     public Room getStartRoom() {

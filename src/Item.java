@@ -18,14 +18,8 @@ public class Item {
         return itemDescription;
     }
 
-    public void setItemName(String itemName, String itemDescription) {
-        this.itemName = itemName;
+    public void remove(Item item) {
     }
-
-    public void setItemDescription(String itemDescription) {
-        this.itemDescription = itemDescription;
-    }
-
 }
 
 

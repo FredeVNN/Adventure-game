@@ -4,6 +4,7 @@ public class Room {
     private String roomNum;
     private String roomName;
     private String roomDescription;
+    private boolean discoveredRoom = false;
     private ArrayList<Item> items;
 
     private Room north, south, east, west;
@@ -57,7 +58,16 @@ public class Room {
         this.west = room;
     }
 
-    //Add items:
+    // Discover rooms:
+    public boolean isDiscoveredRoom() {
+        return discoveredRoom;
+    }
+
+    public void setDiscoveredRoom(boolean discoveredRoom) {
+        this.discoveredRoom = discoveredRoom;
+    }
+
+    //Add items to rooms:
     public ArrayList<Item> getItems() {
         return items;
     }
@@ -66,14 +76,21 @@ public class Room {
         items.add(item);
     }
 
+    // Removes an item from the room
+    public void removeItem(Item item) {
+        items.remove(item);
+    }
+
     // Search for items:
     public Item findItemByName(String itemName) {
 
-        for (Item item: items) {
+        for (Item item : items) {
             if (item.getItemName().equalsIgnoreCase(itemName)) {
                 return item;
             }
         }
         return null;
     }
+
+
 }
