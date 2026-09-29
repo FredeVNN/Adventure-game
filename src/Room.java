@@ -22,7 +22,7 @@ public class Room {
     }
 
     public String getDescription() {
-        return roomName;
+        return roomDescription;
     }
 
     public String getRoomNum() {

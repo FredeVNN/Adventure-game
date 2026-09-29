@@ -28,6 +28,13 @@ public class UserInterface {
         System.out.println("\n[ " + room.getRoomNum() + " ]" + "\t\t>> " + room.getName() + " <<");
         System.out.println("─".repeat(room.getRoomNum().length() + room.getName().length() + 15));
         System.out.println(room.getDescription());
+        if (!room.getItems().isEmpty()) {
+            System.out.println("Items: ");
+
+            for (Item item : room.getItems()) {
+                System.out.println("- " + item.getItemDescription());
+            }
+        }
     }
 
     //Handles commands

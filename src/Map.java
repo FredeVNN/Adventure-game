@@ -28,12 +28,12 @@ public class Map {
         Item spaceSuit = new Item("Spaces siut", "will help you in space");
 
         // Add items to room:
-        r2.getItems().add(scubaGear);
-        r3.getItems().add(yeti);
-        r4.getItems().add(knife);
-        r5.getItems().add(spaceSuit);
-        r7.getItems().add(dinoBone);
-        r8.getItems().add(armor);
+        r2.addItem(scubaGear);
+        r3.addItem(yeti);
+        r4.addItem(knife);
+        r5.addItem(spaceSuit);
+        r7.addItem(dinoBone);
+        r8.addItem(armor);
 
 
         //Find items test
