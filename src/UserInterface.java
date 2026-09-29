@@ -10,17 +10,13 @@ public class UserInterface {
 
     //prints welcome message
     public void welcome() {
-        System.out.println("\t\t\t\t  Welcome to\n" + "\t\t\t\t───────────────\n" + "\t\t\t\t>> TIME MAZE <<\n" + "\t\t\t\t───────────────");
-        System.out.println("\nIt is the year 4,000 BC. You are a caveman out hunting when suddenly—\n"
-                + ">>>CRACK<<<\n"
-                + "The ground disappears beneath your feet, and you fall into darkness.\n"
-                + "You find yourself deep inside a massive underground cave. \n"
-                + "In front of you lies a strange compass. You pick it up. The needle spins wildly.\n"
-                + "You search for a way out, but the endless tunnels only lead you deeper into the unknown.\n"
-                + "Then you hear a strange humming sound.\n"
-                + "You follow it and discover something impossible - \n\n"
-                + "\t* (Type ‘start’ to continue) or (Type 'exit' to close the game) *\n");
-    }
+        System.out.println("WELCOME TO\n");
+        System.out.println("────────────────────────────⟪ TIME MAZE ⟫────────────────────────────\n");
+        System.out.println("It is the year 4,000 BC. You are a caveman out hunting when suddenly—\n" + ">>>CRACK<<<\n" + "The ground disappears beneath your feet, and you fall into darkness.\n");
+        System.out.println("You find yourself deep inside a massive underground cave!\n" + "In front of you lies a strange compass. You pick it up. The needle spins wildly!\n");
+        System.out.println("You search for a way out. But the endless tunnels only lead you deeper into the unknown.\n" + "Then you hear a strange humming sound.\n" + "You follow it and discover something impossible...\n");
+        System.out.println("WHAT WILL YOU DO?\n");
+        System.out.println("\t• Type [start] to begin your journey  •  Type [exit] to leave the maze  •\n");    }
 
     public void rooms(Room room) {
         // Room number and name:
@@ -33,16 +29,14 @@ public class UserInterface {
             // Room description and items:
             System.out.println(room.getDescription());
             if (!room.getItems().isEmpty()) {
-                System.out.println("Here you find");
+                System.out.println("In here you find");
                 for (Item item : room.getItems()) {
                     System.out.println(" + " + item.getItemName() + " (" + item.getItemDescription() + ")");
                 }
             }
             room.setDiscoveredRoom(true);
         }
-        System.out.println("\n\t* (Type 'n' to move north - 'e' to move east - 's' to move south - 'w' to move west) *");
-        System.out.println("\t\t\t\t\t\t* (Type 'help' to see available commands) *");
-    }
+        System.out.println("\n\t• Type [n] to move North  •  Type [e] to move East  •  Type [s] to move South  •  Type [w] to move West •");    }
 
     //Handles commands
     public void handleCommand(Player player) {
@@ -68,7 +62,9 @@ public class UserInterface {
                 System.out.println("See you next time!");
                 System.exit(0);
             }
-            default -> System.out.println("\t* Please enter a valid input! or (Type 'help' to see all commands) *");
+            default -> System.out.println(
+                    "\nHmm... that doesn't seem to work here!" + "\n\ndsa<x\t• Type [help] to see what you can do •\n"
+            );
         }
     }
 
@@ -88,8 +84,7 @@ public class UserInterface {
                 System.exit(0);
             }
         } else {
-            System.out.println("You cannot go that way! Choose another path.");
-        }
+            System.out.println("\nWHOOSH! The portal sends you straight back. Try another path!");        }
     }
 
     //Take item:
@@ -134,28 +129,31 @@ public class UserInterface {
 
     //Shows inventory
     public void showInventory(Player player) {
-        System.out.println("Inventory:");
+        System.out.println("\n⟨ INVENTORY ⟩");
+        System.out.println("─────────────");
 
         if (player.getInventory().isEmpty()) {
-            System.out.println("- empty");
+            System.out.println("Your inventory is empty. Explore the maze, find useful items, and take them with you.");
             return;
         }
         for (Item item : player.getInventory()) {
-            System.out.println("- " + item.getItemName());
+            System.out.println("+ " + item.getItemName());
         }
     }
 
     //Show help - list of commands
     public void showHelp() {
-        System.out.println("\nAvailable commands:");
-        System.out.println("- start       Start the game");
-        System.out.println("- n           Move north");
-        System.out.println("- e           Move east");
-        System.out.println("- s           Move south");
-        System.out.println("- w           Move west");
-        System.out.println("- i           See your inventory");
-        System.out.println("- help        Show all commands");
-        System.out.println("- exit        Close the game");
+        System.out.println("\nAVAILEBLE COMMANDS");
+        System.out.println("───────────────────");
+        System.out.println("➤ start         Start the game");
+        System.out.println("➤ n             Move north");
+        System.out.println("➤ e             Move east");
+        System.out.println("➤ s             Move south");
+        System.out.println("➤ w             Move west");
+        System.out.println("➤ take 'item'   Add item to your inventory");
+        System.out.println("➤ drop 'item'   Remove item from your inventory");
+        System.out.println("➤ i             See your inventory");
+        System.out.println("➤ exit          Close the game\n");
     }
 }
 

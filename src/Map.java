@@ -17,7 +17,7 @@ public class Map {
         r6 = new Room("ROOM 06", "THE JUNGLE TEMPLE", "You stumble into a forgotten temple, hidden deep within a wild jungle of vines and ancient ruins.");
         r7 = new Room("ROOM 07", "THE JURASSIC WORLD", "You step into a prehistoric jungle, where towering trees surround you and dinosaurs roar in the distance.");
         r8 = new Room("ROOM 08", "THE ENCHANTED FOREST", "You wander into an enchanted forest, where glowing plants and strange creatures surround you.");
-        r9 = new Room("ROOM 09", "THE CYBER CITY", "You arrive in a futuristic city, surrounded by neon lights, towering skyscrapers and flying vehicles");
+        r9 = new Room("ROOM 09", "THE CYBER CITY", "You arrive in a futuristic city, surrounded by neon lights, towering skyscrapers and flying vehicles.");
 
     // Connection between Rooms:
         r1.setEast(r2); r1.setSouth(r4);
@@ -46,10 +46,10 @@ public class Map {
 
     // Create Items:
         Item sword = new Item("Pharaoh’s Sword", "Wield this to slay your enemies.");
-        Item yeti = new Item(" A friendly Yeti", "This gentle giant will help protect you.");
+        Item yeti = new Item("Friendly Yeti", "This gentle giant will help protect you.");
         Item scubaGear = new Item("Scuba gear", "Use this to dive and breathe underwater.");
         Item armor = new Item("Warrior’s Armor", "This grants you strength and boosts your health.");
-        Item dinoBone = new Item("A dinosaur bone", "This is probably useless...");
+        Item dinoBone = new Item("Dinosaur bone", "This is probably useless...");
         Item spaceSuit = new Item("Spaces suit", "Wear this to survive in space.");
 
     // Add Items to Rooms:
