@@ -3,23 +3,22 @@ public class Adventure {
 
         Adventure adventure = new Adventure();
 
-        //Map creator:
+        // Map creator:
         Map map = new Map();
 
-        //Player creator:
+        // Player creator:
         Player player = new Player(map.getStartRoom());
 
-        //User connection:
+        // User connection:
         UserInterface ui = new UserInterface();
 
-        //Runningtime:
+        // Runningtime:
         boolean running = true;
 
-        //GameStart:
+        // GameStart:
         ui.welcome();
         while (running) {
             ui.handleCommand(player);
         }
     }
 }
-

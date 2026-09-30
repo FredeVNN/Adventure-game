@@ -8,7 +8,7 @@ public class Map {
 
     public Map() {
 
-    // Create Rooms:
+        // Create Rooms:
         r1 = new Room("ROOM 01", "THE DARK CAVE", "You find yourself deep inside a massive underground cave, dark and cold.");
         r2 = new Room("ROOM 02", "THE SUNKEN ATLANTIS", "You suddenly find yourself beneath the ocean, surrounded by the ruins of Atlantis.");
         r3 = new Room("ROOM 03", "THE FROZEN WASTELAND", "You end up in a frozen wasteland, surrounded by endless snow and towering walls of ice.");
@@ -19,7 +19,7 @@ public class Map {
         r8 = new Room("ROOM 08", "THE ENCHANTED FOREST", "You wander into an enchanted forest, where glowing plants and strange creatures surround you.");
         r9 = new Room("ROOM 09", "THE CYBER CITY", "You arrive in a futuristic city, surrounded by neon lights, towering skyscrapers and flying vehicles.");
 
-    // Connection between Rooms:
+        // Connection between Rooms:
         r1.setEast(r2); r1.setSouth(r4);
         r2.setWest(r1); r2.setEast(r3);
         r3.setWest(r2); r3.setSouth(r6);
@@ -30,7 +30,7 @@ public class Map {
         r8.setWest(r7); r8.setEast(r9); r8.setNorth(r5);
         r9.setNorth(r6); r9.setWest(r8);
 
-    // Wrong directions:
+        // Wrong directions:
         r1.setWest(null); r1.setNorth(null);
         r2.setNorth(null); r2.setSouth(null);
         r3.setNorth(null); r3.setEast(null);
@@ -41,10 +41,10 @@ public class Map {
         r8.setSouth(null);
         r9.setEast(null); r9.setSouth(null);
 
-    // Start Room:
+        // Start Room:
         this.startRoom = r1;
 
-    // Create Items:
+        // Create Items:
         Item sword = new Item("Pharaoh’s Sword", "Wield this to slay your enemies.");
         Item yeti = new Item("Friendly Yeti", "This gentle giant will help protect you.");
         Item scubaGear = new Item("Scuba gear", "Use this to dive and breathe underwater.");
@@ -52,13 +52,27 @@ public class Map {
         Item dinoBone = new Item("Dinosaur bone", "This is probably useless...");
         Item spaceSuit = new Item("Spaces suit", "Wear this to survive in space.");
 
-    // Add Items to Rooms:
+        // Create FoodItems:
+        Food meat = new Food("Meat", "You allready had this from your hunting", 100);
+        Food apple = new Food("Apple", "Is this shinny red apple edible?", -50);
+        Food noodles = new Food("Turbo Noodles", "Could this futuristic ramen power you up?", -25);
+        Food berries = new Food("Magical Berries", "Could these berries hold a magical secret?", 75);
+        Food icecream = new Food("Rainbow icecream", "The friendly Yeti is your friend and offers you a icecream", 15 );
+
+        // Add Items to Rooms:
         r2.addItem(scubaGear);
         r3.addItem(yeti);
         r4.addItem(sword);
         r5.addItem(spaceSuit);
+        r6.addItem(armor);
         r7.addItem(dinoBone);
-        r8.addItem(armor);
+
+        // Adds Food to Rooms:
+        r1.addItem(meat);
+        r3.addItem(icecream);
+        r8.addItem(apple);
+        r8.addItem(berries);
+        r9.addItem(noodles);
     }
 
     // Constructor:

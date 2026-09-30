@@ -8,7 +8,7 @@ public class UserInterface {
         this.scanner = new Scanner(System.in);
     }
 
-    //prints welcome message
+    // Prints welcome message:
     public void welcome() {
         System.out.println("WELCOME TO\n");
         System.out.println("────────────────────────────⟪ TIME MAZE ⟫────────────────────────────\n");
@@ -19,6 +19,7 @@ public class UserInterface {
         System.out.println("\t• Type [start] to begin your journey  •  Type [exit] to leave the maze  •\n");    }
 
     public void rooms(Room room) {
+
         // Room number and name:
         System.out.println("\n[ " + room.getRoomNum() + " ]" + "\t\t>> " + room.getName() + " <<");
         System.out.println("─".repeat(room.getRoomNum().length() + room.getName().length() + 15));
@@ -29,33 +30,36 @@ public class UserInterface {
             // Room description and items:
             System.out.println(room.getDescription());
             if (!room.getItems().isEmpty()) {
-                System.out.println("In here you find");
+                System.out.println("In here you find:");
                 for (Item item : room.getItems()) {
-                    System.out.println(" + " + item.getItemName() + " (" + item.getItemDescription() + ")");
+                    System.out.println("\n\t > " + item.getItemName() + " (" + item.getItemDescription() + ")");
                 }
             }
             room.setDiscoveredRoom(true);
         }
         System.out.println("\n\t• Type [n] to move North  •  Type [e] to move East  •  Type [s] to move South  •  Type [w] to move West •");    }
 
-    //Handles commands
+    // Handles commands:
     public void handleCommand(Player player) {
         String command = scanner.nextLine().toLowerCase();
-// Splits the input into command and item name
+
+        // Splits the input into command and item name:
         String[] parts = command.split(" ", 2);
 
-        // Stores the command
+        // Stores the command:
         command = parts[0];
 
-        // Stores the item name
+        // Stores the item name:
         String itemName = parts.length > 1 ? parts[1] : "";
 
-        //available commands
+        // Available commands:
         switch (command) {
             case "start" -> rooms(player.getCurrentRoom());
             case "n", "e", "s", "w" -> moveDirection(player, command);
             case "take" -> takeItem(player, itemName);
             case "drop" -> dropItem(player, itemName);
+            case "eat" -> eatFood(player, itemName);
+            case "health" -> showHealth(player);
             case "i" -> showInventory(player);
             case "help" -> showHelp();
             case "exit" -> {
@@ -68,7 +72,7 @@ public class UserInterface {
         }
     }
 
-    //shows direction moved
+    // Shows direction moved:
     public void moveDirection(Player player, String direction) {
 
         boolean moving = player.move(direction);
@@ -87,7 +91,33 @@ public class UserInterface {
             System.out.println("\nWHOOSH! The portal sends you straight back. Try another path!");        }
     }
 
-    //Take item:
+    // Eat item:
+    public void eatFood(Player player, String foodName) {
+        Room currentRoom = player.getCurrentRoom();
+
+        Item item = currentRoom.findItemByName(foodName);
+        Food food = null;
+
+        if(item instanceof Food) {
+            food = (Food) item;
+        }
+
+        if (food != null) {
+            currentRoom.removeItem(food);
+            player.addToInventory(food);
+            player.health = player.health + food.getHealthPoints();
+
+            System.out.println("You ate the " + food.getItemName() + "." + " Now your health is: " + player.health);
+        } else {
+            System.out.println("You cant eat the  " + item.getItemName() + ".");
+        }
+    }
+
+    public void showHealth(Player player) {
+        System.out.println("Your healthpoints are: " + player.health);
+    }
+
+    // Take item:
     public void takeItem(Player player, String itemName) {
 
         Room currentRoom = player.getCurrentRoom();
@@ -104,7 +134,7 @@ public class UserInterface {
         }
     }
 
-    // Drops an item from the inventory into the current room
+    // Drops an item from the inventory into the current room:
     public void dropItem(Player player, String itemName) {
 
         Room currentRoom = player.getCurrentRoom();
@@ -127,7 +157,7 @@ public class UserInterface {
         }
     }
 
-    //Shows inventory
+    // Shows inventory:
     public void showInventory(Player player) {
         System.out.println("\n⟨ INVENTORY ⟩");
         System.out.println("─────────────");
@@ -141,7 +171,7 @@ public class UserInterface {
         }
     }
 
-    //Show help - list of commands
+    // Show help - list of commands:
     public void showHelp() {
         System.out.println("\nAVAILEBLE COMMANDS");
         System.out.println("───────────────────");
@@ -152,8 +182,8 @@ public class UserInterface {
         System.out.println("➤ w             Move west");
         System.out.println("➤ take 'item'   Add item to your inventory");
         System.out.println("➤ drop 'item'   Remove item from your inventory");
+        System.out.println("➤ eat  'item'   Adds or removes health");
         System.out.println("➤ i             See your inventory");
         System.out.println("➤ exit          Close the game\n");
     }
 }
-

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Player {
 
-    //Current Room:
+    // Current Room:
     private Room currentRoom;
 
     public Player(Room startRoom) {
@@ -13,7 +13,7 @@ public class Player {
         return currentRoom;
     }
 
-    //Move - Direction
+    // Move - Direction:
     public boolean move(String direction) {
 
         Room desiredRoom = currentRoom.getExit(direction);
@@ -26,15 +26,15 @@ public class Player {
         }
     }
 
-    //Create Inventory
+    // Create Inventory:
     private ArrayList<Item> items;
     ArrayList<Item> inventory = new ArrayList<>();
 
+    // Add items to inventory:
     public void addToInventory(Item item) {
         inventory.add(item);
     }
 
-    //Add items to inventory:
     public ArrayList<Item> getItems() {
         return items;
     }
@@ -43,7 +43,7 @@ public class Player {
         return inventory;
     }
 
-    // Removes an item from the player's inventory
+    // Removes an item from the player's inventory:
     public void removeFromInventory(Item item) {
         inventory.remove(item);
     }
@@ -59,4 +59,6 @@ public class Player {
         return null;
     }
 
+    // Player life:
+    int health = 0;
 }

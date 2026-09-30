@@ -9,7 +9,7 @@ public class Room {
 
     private Room north, south, east, west;
 
-    //Constructor:
+    // Constructor:
     public Room(String roomNum, String name, String description) {
         this.roomNum = roomNum;
         this.roomName = name;
@@ -17,7 +17,7 @@ public class Room {
         this.items = new ArrayList<>();
     }
 
-    //Get Room info:
+    // Get Room info:
     public String getName() {
         return roomName;
     }
@@ -30,7 +30,7 @@ public class Room {
         return roomNum;
     }
 
-    //Get direction:
+    // Get direction:
     public Room getExit(String direction) {
         return switch (direction) {
             case "n" -> north;
@@ -41,7 +41,7 @@ public class Room {
         };
     }
 
-    //Set Direction:
+    // Set Direction:
     public void setNorth(Room room) {
         this.north = room;
     }
@@ -67,7 +67,7 @@ public class Room {
         this.discoveredRoom = discoveredRoom;
     }
 
-    //Add items to rooms:
+    // Add items to rooms:
     public ArrayList<Item> getItems() {
         return items;
     }
@@ -76,7 +76,7 @@ public class Room {
         items.add(item);
     }
 
-    // Removes an item from the room
+    // Removes an item from the room:
     public void removeItem(Item item) {
         items.remove(item);
     }
@@ -91,6 +91,4 @@ public class Room {
         }
         return null;
     }
-
-
 }
