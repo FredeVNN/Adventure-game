@@ -9,15 +9,15 @@ public class Map {
     public Map() {
 
         // Create Rooms:
-        r1 = new Room("ROOM 01", "THE DARK CAVE", "You find yourself deep inside a massive underground cave, dark and cold.");
-        r2 = new Room("ROOM 02", "THE SUNKEN ATLANTIS", "You suddenly find yourself beneath the ocean, surrounded by the ruins of Atlantis.");
-        r3 = new Room("ROOM 03", "THE FROZEN WASTELAND", "You end up in a frozen wasteland, surrounded by endless snow and towering walls of ice.");
-        r4 = new Room("ROOM 04", "THE ANCIENT PYRAMIDS", "You emerge inside an ancient pyramid, surrounded by hieroglyphs, statues and flickering torches.");
-        r5 = new Room("ROOM 05", "THE SPACE STATION", "You suddenly appear aboard a massive space station, floating silently above an unknown planet.");
-        r6 = new Room("ROOM 06", "THE JUNGLE TEMPLE", "You stumble into a forgotten temple, hidden deep within a wild jungle of vines and ancient ruins.");
-        r7 = new Room("ROOM 07", "THE JURASSIC WORLD", "You step into a prehistoric jungle, where towering trees surround you and dinosaurs roar in the distance.");
-        r8 = new Room("ROOM 08", "THE ENCHANTED FOREST", "You wander into an enchanted forest, where glowing plants and strange creatures surround you.");
-        r9 = new Room("ROOM 09", "THE CYBER CITY", "You arrive in a futuristic city, surrounded by neon lights, towering skyscrapers and flying vehicles.");
+        r1 = new Room("ROOM 01", "THE DARK CAVE", "You find yourself deep inside a massive underground cave, dark and cold. Old cave paintings carved into the stone walls depict prehistoric hunters chasing a MAMMOTH.", "Type 'eat + the food name' to eat the food and gain some strength.");
+        r2 = new Room("ROOM 02", "THE SUNKEN ATLANTIS", "You suddenly find yourself beneath the ocean, surrounded by the ruins of Atlantis.", "Type 'take + the item name' to take the item and put it in your inventory.");
+        r3 = new Room("ROOM 03", "THE FROZEN WASTELAND", "You end up in a frozen wasteland, surrounded by endless snow and towering walls of ice. A friendly yeti approaches you with a big smile and offers you a scoop of ice cream.", "Type 'take + the item name' to take the item and put it in your inventory.");
+        r4 = new Room("ROOM 04", "THE ANCIENT PYRAMIDS", "You emerge inside an ancient pyramid, surrounded by hieroglyphs, statues and flickering torches. In the middle of the wall, a giant FALCON is carved within a large circle, surrounded by mysterious symbols.", "Type 'take + the item name' to take the item and put it in your inventory.");
+        r5 = new Room("ROOM 05", "THE SPACE STATION", "You suddenly appear aboard a massive space station, floating silently above an unknown planet. The control panel demands a secret code to activate the ship's engines. You remember seeing three animals carved into the walls of different places throughout the maze. Could they hold the key to your escape?", " ");
+        r6 = new Room("ROOM 06", "THE JUNGLE TEMPLE", "You stumble into a forgotten temple, hidden deep within a wild jungle of vines and ancient ruins. The entrance is shaped like a giant MONKEY head, with its mouth wide open, forming the gateway into the temple.", "Type 'take + the item name' to take the item and put it in your inventory.");
+        r7 = new Room("ROOM 07", "THE JURASSIC WORLD", "You step into a prehistoric jungle, where towering trees surround you and dinosaurs roar in the distance.", "Type 'take + the item name' to take the item and put it in your inventory.");
+        r8 = new Room("ROOM 08", "THE ENCHANTED FOREST", "You wander into an enchanted forest, where glowing plants and strange creatures surround you.", "Type 'eat + the food name' to eat the food and gain some strength.");
+        r9 = new Room("ROOM 09", "THE CYBER CITY", "You arrive in a futuristic city, surrounded by neon lights, towering skyscrapers and flying vehicles.", "Type 'eat + the food name' to eat the food and gain some strength.");
 
         // Connection between Rooms:
         r1.setEast(r2); r1.setSouth(r4);
@@ -46,7 +46,6 @@ public class Map {
 
         // Create Items:
         Item sword = new Item("Pharaoh’s Sword", "Wield this to slay your enemies.");
-        Item yeti = new Item("Friendly Yeti", "This gentle giant will help protect you.");
         Item scubaGear = new Item("Scuba gear", "Use this to dive and breathe underwater.");
         Item armor = new Item("Warrior’s Armor", "This grants you strength and boosts your health.");
         Item dinoBone = new Item("Dinosaur bone", "This is probably useless...");
@@ -61,7 +60,6 @@ public class Map {
 
         // Add Items to Rooms:
         r2.addItem(scubaGear);
-        r3.addItem(yeti);
         r4.addItem(sword);
         r5.addItem(spaceSuit);
         r6.addItem(armor);

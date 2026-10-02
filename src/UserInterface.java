@@ -33,6 +33,7 @@ public class UserInterface {
                 System.out.println("In here you find:");
                 for (Item item : room.getItems()) {
                     System.out.println("\n\t > " + item.getItemName() + " (" + item.getItemDescription() + ")");
+                    System.out.println(room.getGuide());
                 }
             }
             room.setDiscoveredRoom(true);
@@ -55,7 +56,8 @@ public class UserInterface {
         // Available commands:
         switch (command) {
             case "start" -> rooms(player.getCurrentRoom());
-            case "n", "e", "s", "w" -> moveDirection(player, command);
+            case "n", "north", "go north", "e", "east", "go east", "s", "south", "go south", "w", "west", "go west" -> moveDirection(player, command);
+            case "look" -> System.out.println(player.getCurrentRoom().getDescription());
             case "take" -> takeItem(player, itemName);
             case "drop" -> dropItem(player, itemName);
             case "eat" -> eatFood(player, itemName);
@@ -115,7 +117,21 @@ public class UserInterface {
 
     public void showHealth(Player player) {
         System.out.println("Your healthpoints are: " + player.health);
+
+        int h = player.health;
+
+        if(h >= 100){
+            System.out.println("you are in perfect health");
+        } else if (h >= 50) {
+            System.out.println("you are in good health, but avoid fighting right now");
+        } else if (h >= 25) {
+            System.out.println("you are wounded - find something healthy to eat");
+        } else if (h >= 1) {
+            System.out.println("you are barely alive");
+        } else {System.out.println("you should be dead");
+        }
     }
+
 
     // Take item:
     public void takeItem(Player player, String itemName) {
@@ -175,15 +191,16 @@ public class UserInterface {
     public void showHelp() {
         System.out.println("\nAVAILEBLE COMMANDS");
         System.out.println("───────────────────");
-        System.out.println("➤ start         Start the game");
-        System.out.println("➤ n             Move north");
-        System.out.println("➤ e             Move east");
-        System.out.println("➤ s             Move south");
-        System.out.println("➤ w             Move west");
-        System.out.println("➤ take 'item'   Add item to your inventory");
-        System.out.println("➤ drop 'item'   Remove item from your inventory");
-        System.out.println("➤ eat  'item'   Adds or removes health");
-        System.out.println("➤ i             See your inventory");
-        System.out.println("➤ exit          Close the game\n");
+        System.out.println("➤ start                          Start the game");
+        System.out.println("➤ n, north, go north             Move north");
+        System.out.println("➤ e, east, go east               Move east");
+        System.out.println("➤ s, south, go south             Move south");
+        System.out.println("➤ w, west, go west               Move west");
+        System.out.println("➤ look                           To get the room described again");
+        System.out.println("➤ take 'item'                    Add item to your inventory");
+        System.out.println("➤ drop 'item'                    Remove item from your inventory");
+        System.out.println("➤ eat  'item'                    Adds or removes health");
+        System.out.println("➤ i                              See your inventory");
+        System.out.println("➤ exit                           Close the game\n");
     }
 }

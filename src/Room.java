@@ -4,16 +4,18 @@ public class Room {
     private String roomNum;
     private String roomName;
     private String roomDescription;
+    private String guide;
     private boolean discoveredRoom = false;
     private ArrayList<Item> items;
 
     private Room north, south, east, west;
 
     // Constructor:
-    public Room(String roomNum, String name, String description) {
+    public Room(String roomNum, String name, String description, String guide) {
         this.roomNum = roomNum;
         this.roomName = name;
         this.roomDescription = description;
+        this.guide = guide;
         this.items = new ArrayList<>();
     }
 
@@ -26,6 +28,8 @@ public class Room {
         return roomDescription;
     }
 
+    public String getGuide() {return guide;}
+
     public String getRoomNum() {
         return roomNum;
     }
@@ -33,10 +37,10 @@ public class Room {
     // Get direction:
     public Room getExit(String direction) {
         return switch (direction) {
-            case "n" -> north;
-            case "s" -> south;
-            case "e" -> east;
-            case "w" -> west;
+            case "n", "north", "go north" -> north;
+            case "s", "south", "go south" -> south;
+            case "e", "east", "go east" -> east;
+            case "w", "west", "go west" -> west;
             default -> null;
         };
     }
