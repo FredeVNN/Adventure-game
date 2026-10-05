@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -32,17 +33,23 @@ public class UserInterface {
                 System.out.println("\nYou also discover:");
                 for (Item item : room.getItems()) {
                     System.out.println("\n\t★ " + item.getItemName() + "\n\t\u001B[3m  " + item.getItemDescription() + "\u001B[0m");
-                    System.out.println("─".repeat(room.getDescription().length()));
-                    System.out.println("\u001B[1m\u001B[35m\n\t• " + room.getGuide() + " •\u001B[0m");
+
                 }
             }
             room.setDiscoveredRoom(true);
         }
+        System.out.println("─".repeat(room.getDescription().length()));
+        System.out.println("\u001B[1m\u001B[35m\n\t• " + room.getGuide() + " •\u001B[0m");
         System.out.println("\u001B[1m\u001B[35m\t• Type [n] to move North  •  Type [e] to move East  •  Type [s] to move South  •  Type [w] to move West •\u001B[0m");
     }
+
     // Handles commands:
     public void handleCommand(Player player) {
         String command = scanner.nextLine().toLowerCase();
+
+        if(command.startsWith("go ")) {
+            command = command.substring(3);
+        }
 
         // Splits the input into command and item name:
         String[] parts = command.split(" ", 2);
@@ -54,11 +61,14 @@ public class UserInterface {
         // Available commands:
         switch (command) {
             case "start" -> rooms(player.getCurrentRoom());
-            case "n", "north", "go north", "e", "east", "go east", "s", "south", "go south", "w", "west", "go west" -> moveDirection(player, command);
+            case "n", "north", "go north", "e", "east", "go east", "s", "south", "go south", "w", "west", "go west" ->
+                    moveDirection(player, command);
             case "look" -> System.out.println(player.getCurrentRoom().getDescription());
             case "take" -> takeItem(player, itemName);
             case "drop" -> dropItem(player, itemName);
             case "eat" -> eatFood(player, itemName);
+            case "attack" -> attack(player);
+            case "equip" -> equipWeapon(player, itemName);
             case "health" -> showHealth(player);
             case "i" -> showInventory(player);
             case "help" -> showHelp();
@@ -88,30 +98,43 @@ public class UserInterface {
                 System.exit(0);
             }
         } else {
-            System.out.println("\nWHOOSH! The portal sends you straight back. Try another path!");        }
+            System.out.println("\nWHOOSH! The portal sends you straight back. Try another path!");
+        }
     }
 
     // Eat item:
     public void eatFood(Player player, String foodName) {
         Room currentRoom = player.getCurrentRoom();
 
+
         Item item = currentRoom.findItemByName(foodName);
-        Food food = null;
-
-        if(item instanceof Food) {
-            food = (Food) item;
+        if (item == null) {
+            item = player.findItemByName(foodName);
         }
 
-        if (food != null) {
+        if (item == null) {
+            System.out.println("There is nothing like '" + foodName + "' to eat around here.");
+            return;
+        }
+
+        if (!(item instanceof Food)) {
+            System.out.println("You cannot eat the " + item.getItemName() + ".");
+            return;
+        }
+
+        Food food = (Food) item;
+
+        player.health = player.health + food.getHealthPoints();
+
+        if (currentRoom.findItemByName(foodName) != null) {
             currentRoom.removeItem(food);
-            player.addToInventory(food);
-            player.health = player.health + food.getHealthPoints();
-
-            System.out.println("You ate the " + food.getItemName() + "." + " Now your health is: " + player.health);
         } else {
-            System.out.println("You cant eat the  " + item.getItemName() + ".");
+            player.removeFromInventory(food);
         }
+
+        System.out.println("You ate the " + food.getItemName() + ". Now your health is: " + player.health);
     }
+
     // Health:
     public void showHealth(Player player) {
         System.out.println("Your healthpoints are: " + player.health);
@@ -184,6 +207,53 @@ public class UserInterface {
         }
     }
 
+    // Equip weapon:
+    public void equipWeapon(Player player, String weaponName) {
+
+        Item item = null;
+
+        for (Item inventoryItem : player.getInventory()) {
+            if (inventoryItem.getItemName().equalsIgnoreCase(weaponName)) {
+                item = inventoryItem;
+                break;
+            }
+        }
+
+        if (item == null) {
+            System.out.println("You do not have '" + weaponName + "' in your inventory.");
+        }
+
+        else if (item instanceof Weapon) {
+            player.equipWeapon((Weapon) item);
+            System.out.println("You equip the " + item.getItemName() + ".");
+        }
+
+        else {
+            System.out.println("You cannot equip the " + item.getItemName() + " because it is not a weapon.");
+        }
+    }
+
+    // Attac:
+    public void attack(Player player) {
+
+        Weapon weapon = player.getEquippedWeapon();
+
+        if (weapon == null) {
+            System.out.println("You have no weapon equipped.");
+            return;
+        }
+
+        if (!weapon.canUse()) {
+            System.out.println("Your weapon is out of ammunition.");
+            return;
+        }
+
+        player.attack();
+
+        System.out.println("You attack with the " + weapon.getItemName() + ".");
+        System.out.println("You deal " + weapon.getDamage() + " damage.");
+    }
+
     // Show help - list of commands:
     public void showHelp() {
         System.out.println("─────────────────────────────────────────────────────────");
@@ -194,7 +264,9 @@ public class UserInterface {
         System.out.println("[s] [south] [go south]  ➤   Move south");
         System.out.println("[w] [west] [go west]    ➤   Move west");
         System.out.println("[eat + food]            ➤   Adds or removes health");
+        System.out.println("[attack]                ➤   Attacks the enemy");
         System.out.println("[health]                ➤   Show health points");
+        System.out.println("[equip]                 ➤   Equips the weapon");
         System.out.println("[take + item]           ➤   Add item to inventory");
         System.out.println("[drop + item]           ➤   Remove item from inventory");
         System.out.println("[i] [inventory]         ➤   See your inventory");
@@ -202,4 +274,5 @@ public class UserInterface {
         System.out.println("[exit]                  ➤   Close the game");
         System.out.println("─────────────────────────────────────────────────────────\n");
     }
+
 }

@@ -27,17 +27,13 @@ public class Player {
     }
 
     // Create Inventory:
-    private ArrayList<Item> items;
-    ArrayList<Item> inventory = new ArrayList<>();
+    private ArrayList<Item> inventory = new ArrayList<>();
 
     // Add items to inventory:
     public void addToInventory(Item item) {
         inventory.add(item);
     }
 
-    public ArrayList<Item> getItems() {
-        return items;
-    }
 
     public ArrayList<Item> getInventory() {
         return inventory;
@@ -51,7 +47,7 @@ public class Player {
     // Search for items:
     public Item findItemByName(String itemName) {
 
-        for (Item item : items) {
+        for (Item item : inventory) {
             if (item.getItemName().equalsIgnoreCase(itemName)) {
                 return item;
             }
@@ -60,5 +56,33 @@ public class Player {
     }
 
     // Player life:
-    int health = 0;
+    int health = 10;
+
+  // Equip weapon:
+
+    private Weapon equippedWeapon;
+
+    public Weapon getEquippedWeapon() {
+        return equippedWeapon;
+    }
+
+    public void equipWeapon(Weapon weapon) {
+        equippedWeapon = weapon;
+    }
+
+    // Attack:
+    public void attack() {
+
+        if (equippedWeapon == null) {
+            return;
+        }
+
+        if (!equippedWeapon.canUse()) {
+            return;
+        }
+
+        equippedWeapon.use();
+
+        int damage = equippedWeapon.getDamage();
+    }
 }

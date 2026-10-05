@@ -45,11 +45,16 @@ public class Map {
         this.startRoom = r1;
 
         // Create Items:
-        Item sword = new Item("Pharaoh’s Sword", "Wield this to slay your enemies.");
         Item scubaGear = new Item("Scuba gear", "Use this to dive and breathe underwater.");
         Item armor = new Item("Warrior’s Armor", "This grants you strength and boosts your health.");
         Item dinoBone = new Item("Dinosaur bone", "This is probably useless...");
         Item spaceSuit = new Item("Spaces suit", "Wear this to survive in space.");
+
+        // Add Items to Rooms:
+        r2.addItem(scubaGear);
+        r5.addItem(spaceSuit);
+        r6.addItem(armor);
+        r7.addItem(dinoBone);
 
         // Create FoodItems:
         Food meat = new Food("Hunted Meat", "Fresh from your prehistoric hunt. A perfect meal for a caveman.", 100);
@@ -58,19 +63,23 @@ public class Map {
         Food berries = new Food("Mystic Berries", "Strange glowing berries found deep in the enchanted forest. What magic could they hold?", 75);
         Food icecream = new Food("Yeti's Ice Cream", "A frozen treat offered by your friendly Yeti. A little kindness in the frozen wasteland.", 15);
 
-        // Add Items to Rooms:
-        r2.addItem(scubaGear);
-        r4.addItem(sword);
-        r5.addItem(spaceSuit);
-        r6.addItem(armor);
-        r7.addItem(dinoBone);
-
         // Adds Food to Rooms:
         r1.addItem(meat);
         r3.addItem(icecream);
         r8.addItem(apple);
         r8.addItem(berries);
         r9.addItem(noodles);
+
+        // Create weapons:
+        Weapon BowAndArrow = new BowAndArrow("Hunters Bow", "From hunting earlier", 10, 3);
+        Weapon PharaohsSword = new PharaohsSword("Pharaoh's Sword", "Wield this to slay your enemies.", 15);
+        Weapon ThrongStars = new ThrowingStars("Throwing Stars", "Throw this at enemies", 30, 3);
+
+        // Add weapons to rooms:
+        r1.addItem(BowAndArrow);
+        r4.addItem(PharaohsSword);
+        r9.addItem(ThrongStars);
+
     }
 
     // Constructor:
