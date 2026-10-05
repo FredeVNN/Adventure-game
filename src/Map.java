@@ -9,15 +9,15 @@ public class Map {
     public Map() {
 
         // Create Rooms:
-        r1 = new Room("ROOM 01", "THE DARK CAVE", "You find yourself deep inside a massive underground cave, dark and cold. Old cave paintings carved into the stone walls depict prehistoric hunters chasing a MAMMOTH.", "Type 'eat + the food name' to eat the food and gain some strength.");
-        r2 = new Room("ROOM 02", "THE SUNKEN ATLANTIS", "You suddenly find yourself beneath the ocean, surrounded by the ruins of Atlantis.", "Type 'take + the item name' to take the item and put it in your inventory.");
-        r3 = new Room("ROOM 03", "THE FROZEN WASTELAND", "You end up in a frozen wasteland, surrounded by endless snow and towering walls of ice. A friendly yeti approaches you with a big smile and offers you a scoop of ice cream.", "Type 'take + the item name' to take the item and put it in your inventory.");
-        r4 = new Room("ROOM 04", "THE ANCIENT PYRAMIDS", "You emerge inside an ancient pyramid, surrounded by hieroglyphs, statues and flickering torches. In the middle of the wall, a giant FALCON is carved within a large circle, surrounded by mysterious symbols.", "Type 'take + the item name' to take the item and put it in your inventory.");
-        r5 = new Room("ROOM 05", "THE SPACE STATION", "You suddenly appear aboard a massive space station, floating silently above an unknown planet. The control panel demands a secret code to activate the ship's engines. You remember seeing three animals carved into the walls of different places throughout the maze. Could they hold the key to your escape?", " ");
-        r6 = new Room("ROOM 06", "THE JUNGLE TEMPLE", "You stumble into a forgotten temple, hidden deep within a wild jungle of vines and ancient ruins. The entrance is shaped like a giant MONKEY head, with its mouth wide open, forming the gateway into the temple.", "Type 'take + the item name' to take the item and put it in your inventory.");
-        r7 = new Room("ROOM 07", "THE JURASSIC WORLD", "You step into a prehistoric jungle, where towering trees surround you and dinosaurs roar in the distance.", "Type 'take + the item name' to take the item and put it in your inventory.");
-        r8 = new Room("ROOM 08", "THE ENCHANTED FOREST", "You wander into an enchanted forest, where glowing plants and strange creatures surround you.", "Type 'eat + the food name' to eat the food and gain some strength.");
-        r9 = new Room("ROOM 09", "THE CYBER CITY", "You arrive in a futuristic city, surrounded by neon lights, towering skyscrapers and flying vehicles.", "Type 'eat + the food name' to eat the food and gain some strength.");
+        r1 = new Room("ROOM 01", "THE DARK CAVE", "You find yourself deep inside a massive underground cave, dark and cold. Old cave paintings carved into the stone walls depict prehistoric hunters chasing a MAMMOTH.", "Type [eat + food name] to eat food and restore your strength");
+        r2 = new Room("ROOM 02", "THE SUNKEN ATLANTIS", "You suddenly find yourself beneath the ocean, surrounded by the ruins of Atlantis.", "Type [take + item name] to pick up an item and add it to your inventory");
+        r3 = new Room("ROOM 03", "THE FROZEN WASTELAND", "You end up in a frozen wasteland, surrounded by endless snow and towering walls of ice. A friendly yeti approaches you with a big smile and offers you a scoop of ice cream. Before you leave, the yeti tells you that you can always ask for help if you get lost or need guidance on your journey.", "Type [help] to see all available commands");
+        r4 = new Room("ROOM 04", "THE ANCIENT PYRAMIDS", "You emerge inside an ancient pyramid, surrounded by hieroglyphs, statues and flickering torches. In the middle of the wall, a giant FALCON is carved within a large circle, surrounded by mysterious symbols.", "Type [take + item name] to pick up an item and add it to your inventory");
+        r5 = new Room("ROOM 05", "THE SPACE STATION", "You suddenly appear aboard a massive space station, floating silently above an unknown planet. The control panel demands a secret code to activate the ship's engines. You remember seeing three animals carved into the walls of different places throughout the maze. Could they hold the key to your escape?", "");
+        r6 = new Room("ROOM 06", "THE JUNGLE TEMPLE", "You stumble into a forgotten temple, hidden deep within a wild jungle of vines and ancient ruins. The entrance is shaped like a giant MONKEY head, with its mouth wide open, forming the gateway into the temple.", "Type [take + item name] to pick up an item and add it to your inventory");
+        r7 = new Room("ROOM 07", "THE JURASSIC WORLD", "You step into a prehistoric jungle, where towering trees surround you and dinosaurs roar in the distance.", "Type [take + item name] to pick up an item and add it to your inventory");
+        r8 = new Room("ROOM 08", "THE ENCHANTED FOREST", "You wander into an enchanted forest, where glowing plants and strange creatures surround you.", "Type [eat + food name] to eat food and restore your strength");
+        r9 = new Room("ROOM 09", "THE CYBER CITY", "You arrive in a futuristic city, surrounded by neon lights, towering skyscrapers and flying vehicles.", "Type [eat + food name] to eat food and restore your strength");
 
         // Connection between Rooms:
         r1.setEast(r2); r1.setSouth(r4);
@@ -52,11 +52,11 @@ public class Map {
         Item spaceSuit = new Item("Spaces suit", "Wear this to survive in space.");
 
         // Create FoodItems:
-        Food meat = new Food("Meat", "You allready had this from your hunting", 100);
-        Food apple = new Food("Apple", "Is this shinny red apple edible?", -50);
-        Food noodles = new Food("Turbo Noodles", "Could this futuristic ramen power you up?", -25);
-        Food berries = new Food("Magical Berries", "Could these berries hold a magical secret?", 75);
-        Food icecream = new Food("Rainbow icecream", "The friendly Yeti is your friend and offers you a icecream", 15 );
+        Food meat = new Food("Hunted Meat", "Fresh from your prehistoric hunt. A perfect meal for a caveman.", 100);
+        Food apple = new Food("Enchanted Apple", "A mysterious red apple found in the enchanted forest. Should you dare to take a bite?", -50);
+        Food noodles = new Food("Turbo Noodles", "A bowl of futuristic noodles. Could this power you up?", -25);
+        Food berries = new Food("Mystic Berries", "Strange glowing berries found deep in the enchanted forest. What magic could they hold?", 75);
+        Food icecream = new Food("Yeti's Ice Cream", "A frozen treat offered by your friendly Yeti. A little kindness in the frozen wasteland.", 15);
 
         // Add Items to Rooms:
         r2.addItem(scubaGear);
