@@ -18,7 +18,7 @@ public class UserInterface {
     }
 
     // Prints welcome message:
-    public void welcome() {
+    private void welcome() {
         System.out.println("WELCOME TO\n");
         System.out.println("\u001B[1m\u001B[34m──────────────⟪ TIME MAZE ⟫──────────────────────────────────────────────────────────────────────\n\u001B[0m");
         System.out.println("It is the year 4,000 BC. You are a caveman out hunting when suddenly—\n" + ">>>CRACK<<<\n" + "The ground disappears beneath your feet, and you fall into darkness.\n");
@@ -29,7 +29,7 @@ public class UserInterface {
     }
 
     // Room number and name:
-    public void rooms(Room room) {
+    private void rooms(Room room) {
         System.out.println("\n[ " + room.getRoomNum() + " ]" + "\t\t>> " + room.getName() + " <<");
         System.out.println("─".repeat(room.getRoomNum().length() + room.getName().length() + 15));
 
@@ -51,7 +51,7 @@ public class UserInterface {
     }
 
     // Handles commands:
-    public void handleCommand() {
+    private void handleCommand() {
         String command = scanner.nextLine().toLowerCase();
 
         if (command.startsWith("go ")) {
@@ -90,7 +90,7 @@ public class UserInterface {
     }
 
     // Shows direction moved:
-    public void moveDirection(String direction) {
+    private void moveDirection(String direction) {
 
         boolean moving = adventure.go(direction);
 
