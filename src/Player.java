@@ -45,6 +45,10 @@ public class Player {
     // Removes an item from the player's inventory:
     public void removeFromInventory(Item item) {
         inventory.remove(item);
+
+        if (item == equippedWeapon) {
+            equippedWeapon = null;
+        }
     }
 
     // Search for items:
@@ -91,7 +95,7 @@ public class Player {
         }
         Food food = (Food) item;
 
-        health = health + food.getHealthPoints();
+        changeHealth(food.getHealthPoints());
 
         if (itemIsInInventory) {
             removeFromInventory(food);
@@ -109,16 +113,12 @@ public class Player {
         return health > 0;
     }
     public boolean hit(int damage) {
-        health = health - damage;
+        changeHealth(-damage);
 
-        if (health <= 0) {
-            health = 0;
-            return true;
-        }
-        return false;
+        return !isAlive();
     }
 
-    public void changeHealth (int healthChange) {
+    private void changeHealth (int healthChange) {
         health = health + healthChange;
 
         if (health < 0) {

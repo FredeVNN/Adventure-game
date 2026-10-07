@@ -75,8 +75,7 @@ public class Map {
 
         // Add weapons to rooms:
         r1.addItem(huntersBow);
-        r4.addItem(PharaohsSword);
-        r9.addItem(ThrowingStars);
+
 
         //Creates enemy
         Enemy mummy = new Enemy("Mummy", "The ancient mummy", "It rises from its sarcophagus", 30, PharaohsSword, r4);

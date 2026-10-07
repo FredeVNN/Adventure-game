@@ -72,7 +72,7 @@ public class UserInterface {
             case "attack" -> attack(player, itemName);
             case "equip" -> equipWeapon(player, itemName);
             case "health" -> showHealth(player);
-            case "i" -> showInventory(player);
+            case "i", "inventory" -> showInventory(player);
             case "help" -> showHelp();
             case "exit" -> {
                 System.out.println("See you next time!");
@@ -262,7 +262,7 @@ public class UserInterface {
                 return;
             }
         }
-        //if no name is intered after attack, attack the first enemy
+        //if no name is entered after attack, attack the first enemy
         else if (!currentRoom.getEnemies().isEmpty()) {
             enemy = currentRoom.getEnemies().get(0);
         }
@@ -273,16 +273,16 @@ public class UserInterface {
         switch (result) {
             case NO_WEAPON -> System.out.println("You have no weapon equipped.");
             case WEAPON_EMPTY -> System.out.println("Your weapon can no longer be used.");
-            case EMPTY_AIR -> {System.out.println("There are no enemies here. You attack the empty air with the " + weapon.getItemName() + ".");
+            case EMPTY_AIR -> {System.out.println("There are no enemies here. You " + weapon.getAttackVerb() + " the " + weapon.getItemName() + " at the empty air.");
                 showWeaponStatus(weapon);
             }
-            case ENEMY_HIT -> {System.out.println("You attack " + enemy.getLongName() + " with the " + weapon.getItemName() + " for " + weapon.getDamage() + " damage.");
+            case ENEMY_HIT -> {System.out.println("You " + weapon.getAttackVerb() + " the " + weapon.getItemName() + " at " + enemy.getLongName() +  " for " + weapon.getDamage() + " damage.");
                 showWeaponStatus(weapon);
                 System.out.println(enemy.getLongName() + " has " + enemy.getHealth() + " health left.");
                 enemyAttack(player, enemy);
             }
             case ENEMY_DIED -> {
-                System.out.println("You attack " + enemy.getLongName() + " with the " + weapon.getItemName() + " for " + weapon.getDamage() + " damage.");
+                System.out.println("You " + weapon.getAttackVerb() + " the " + weapon.getItemName() + " at " + enemy.getLongName() + " for " + weapon.getDamage() + " damage.");
                 showWeaponStatus(weapon);
                 System.out.println(enemy.getLongName() + " dies and drops the " + enemy.getWeapon().getItemName());
             }
