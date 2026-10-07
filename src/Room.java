@@ -19,7 +19,18 @@ public class Room {
         this.items = new ArrayList<>();
         this.enemies = new ArrayList<>();
     }
-
+    public Room getNorth() {
+        return north;
+    }
+    public Room getSouth() {
+        return south;
+    }
+    public Room getEast() {
+        return east;
+    }
+    public Room getWest() {
+        return west;
+    }
     // Get Room info:
     public String getName() {
         return roomName;
@@ -29,21 +40,12 @@ public class Room {
         return roomDescription;
     }
 
-    public String getGuide() {return guide;}
+    public String getGuide() {
+        return guide;
+    }
 
     public String getRoomNum() {
         return roomNum;
-    }
-
-    // Get direction:
-    public Room getExit(String direction) {
-        return switch (direction) {
-            case "n", "north", "go north" -> north;
-            case "s", "south", "go south" -> south;
-            case "e", "east", "go east" -> east;
-            case "w", "west", "go west" -> west;
-            default -> null;
-        };
     }
 
     // Set Direction:

@@ -1,12 +1,20 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserInterface {
 
-    private Scanner scanner;
+    private final Scanner scanner;
+    private final Adventure adventure;
 
-    public UserInterface() {
+    public UserInterface(Adventure adventure) {
+        this.adventure = adventure;
         this.scanner = new Scanner(System.in);
+    }
+    public void startProgram() {
+        welcome();
+
+        while (true) {
+            handleCommand();
+        }
     }
 
     // Prints welcome message:
@@ -43,7 +51,7 @@ public class UserInterface {
     }
 
     // Handles commands:
-    public void handleCommand(Player player) {
+    public void handleCommand() {
         String command = scanner.nextLine().toLowerCase();
 
         if (command.startsWith("go ")) {
@@ -59,17 +67,17 @@ public class UserInterface {
 
         // Available commands:
         switch (command) {
-            case "start" -> rooms(player.getCurrentRoom());
+            case "start" -> rooms(adventure.getCurrentRoom());
             case "n", "north", "go north", "e", "east", "go east", "s", "south", "go south", "w", "west", "go west" ->
-                    moveDirection(player, command);
-            case "look" -> lookAround(player.getCurrentRoom());
-            case "take" -> takeItem(player, itemName);
-            case "drop" -> dropItem(player, itemName);
-            case "eat" -> eatFood(player, itemName);
-            case "attack" -> attack(player, itemName);
-            case "equip" -> equipWeapon(player, itemName);
-            case "health" -> showHealth(player);
-            case "i", "inventory" -> showInventory(player);
+                    moveDirection(command);
+            case "look" -> lookAround(adventure.getCurrentRoom());
+            case "take" -> takeItem(itemName);
+            case "drop" -> dropItem(itemName);
+            case "eat" -> eatFood(itemName);
+            case "attack" -> attack(itemName);
+            case "equip" -> equipWeapon(itemName);
+            case "health" -> showHealth();
+            case "i", "inventory" -> showInventory();
             case "help" -> showHelp();
             case "exit" -> {
                 System.out.println("See you next time!");
@@ -82,12 +90,12 @@ public class UserInterface {
     }
 
     // Shows direction moved:
-    public void moveDirection(Player player, String direction) {
+    public void moveDirection(String direction) {
 
-        boolean moving = player.move(direction);
+        boolean moving = adventure.go(direction);
 
         if (moving) {
-            Room currentRoom = player.getCurrentRoom();
+            Room currentRoom = adventure.getCurrentRoom();
             rooms(currentRoom);
 
             if (currentRoom.getRoomNum().equals("ROOM 05")) {
@@ -102,8 +110,8 @@ public class UserInterface {
     }
 
     // Eat item:
-    public void eatFood(Player player, String foodName) {
-        EatOutcome outcome = player.eat(foodName);
+    private void eatFood(String foodName) {
+        EatOutcome outcome = adventure.eat(foodName);
 
         switch (outcome.getResult()) {
             case NOT_FOUND ->
@@ -116,9 +124,9 @@ public class UserInterface {
                 } else if (outcome.getHealthChange() < 0) {
                     System.out.println("That was a mistake");
                 }
-                System.out.println("Your health is now: " + player.getHealth());
+                System.out.println("Your health is now: " + adventure.getHealth());
 
-                if (!player.isAlive()) {
+                if (!adventure.isPlayerAlive()) {
                     System.out.println("The food was deadly. You died. Game over.");
                     System.exit(0);
                 }
@@ -127,10 +135,10 @@ public class UserInterface {
     }
 
     // shows players health:
-    public void showHealth(Player player) {
-        System.out.println("Your healthpoints are: " + player.getHealth());
+    private void showHealth() {
+        System.out.println("Your healthpoints are: " + adventure.getHealth());
 
-        int h = player.getHealth();
+        int h = adventure.getHealth();
 
         if(h >= 100){
             System.out.println("you are in perfect health");
@@ -145,9 +153,9 @@ public class UserInterface {
     }
 
     // Take item
-    public void takeItem(Player player, String itemName) {
+    private void takeItem(String itemName) {
 
-        Item item = player.takeItem(itemName);
+        Item item = adventure.takeItem(itemName);
 
         if (item == null) {
             System.out.println("There is no " + itemName + " to take here.");
@@ -158,8 +166,8 @@ public class UserInterface {
     }
 
     // Drop item:
-    public void dropItem(Player player, String itemName) {
-        Item item = player.dropItem(itemName);
+    private void dropItem(String itemName) {
+        Item item = adventure.dropItem(itemName);
 
         if (item == null) {
             System.out.println("You do not have " + itemName + " in your inventory");
@@ -171,29 +179,29 @@ public class UserInterface {
     //Show items in room
     private void showItems (Room room) {
         if (room.getItems().isEmpty()) {
-            System.out.println("\n There are no items in this room.");
+            System.out.println("\nThere are no items in this room.");
             return;
         }
-        System.out.println("\n You also discover: ");
+        System.out.println("\nYou also discover: ");
         for (Item item: room.getItems()) {
-            System.out.println("\n\t* " + item.getItemName() + item.getItemDescription());
+            System.out.println("\n\t* " + item.getItemName() + " - " + item.getItemDescription());
         }
     }
 
     // Shows inventory:
-    public void showInventory(Player player) {
+    private void showInventory() {
         System.out.println("\n⟨ INVENTORY ⟩");
         System.out.println("─────────────");
 
-        if (player.getInventory().isEmpty()) {
+        if (adventure.getInventory().isEmpty()) {
             System.out.println("Your inventory is empty. Explore the maze, find useful items, and take them with you.");
         }
         else {
-            for (Item item : player.getInventory()) {
+            for (Item item : adventure.getInventory()) {
                 System.out.println("+ " + item.getItemName());
             }
         }
-        Weapon equippedWeapon = player.getEquippedWeapon();
+        Weapon equippedWeapon = adventure.getEquippedWeapon();
         if (equippedWeapon == null) {
             System.out.println("\nEquipped: nothing");
         }
@@ -203,13 +211,13 @@ public class UserInterface {
     }
 
     // tells possibilities of equip:
-    public void equipWeapon(Player player, String weaponName) {
+    private void equipWeapon(String weaponName) {
 
-        EquipResult result = player.equip(weaponName);
+        EquipResult result = adventure.equip(weaponName);
         switch(result) {
             case NOT_FOUND -> System.out.println("You do not have '" + weaponName + "' in your inventory.");
             case NOT_WEAPON -> System.out.println("You cannot equip the " + weaponName + " because it is not a weapon.");
-            case EQUIPPED -> System.out.println("You equip the " + player.getEquippedWeapon().getItemName());
+            case EQUIPPED -> System.out.println("You equip the " + adventure.getEquippedWeapon().getItemName());
         }
     }
     //Tells the weapons last use and ammunition
@@ -237,9 +245,9 @@ public class UserInterface {
         }
     }
     //Player Attack:
-    public void attack(Player player, String enemyName) {
+    private void attack(String enemyName) {
 
-        Room currentRoom = player.getCurrentRoom();
+        Room currentRoom = adventure.getCurrentRoom();
         Enemy enemy = null;
 
         if (!enemyName.isBlank()) {
@@ -257,8 +265,8 @@ public class UserInterface {
             enemy = currentRoom.getEnemies().get(0);
         }
 
-        Weapon weapon = player.getEquippedWeapon();
-        AttackResult result = player.attack(enemy);
+        Weapon weapon = adventure.getEquippedWeapon();
+        AttackResult result = adventure.attack(enemy);
 
         switch (result) {
             case NO_WEAPON -> System.out.println("You have no weapon equipped.");
@@ -269,7 +277,7 @@ public class UserInterface {
             case ENEMY_HIT -> {System.out.println("You " + weapon.getAttackVerb() + " the " + weapon.getItemName() + " at " + enemy.getLongName() +  " for " + weapon.getDamage() + " damage.");
                 showWeaponStatus(weapon);
                 System.out.println(enemy.getLongName() + " has " + enemy.getHealth() + " health left.");
-                enemyAttack(player, enemy);
+                enemyAttack(enemy);
             }
             case ENEMY_DIED -> {
                 System.out.println("You " + weapon.getAttackVerb() + " the " + weapon.getItemName() + " at " + enemy.getLongName() + " for " + weapon.getDamage() + " damage.");
@@ -281,16 +289,16 @@ public class UserInterface {
         }
     }
     //Enemy attack
-    private void enemyAttack(Player player, Enemy enemy) {
+    private void enemyAttack(Enemy enemy) {
 
-        AttackResult result = enemy.attack(player);
+        AttackResult result = adventure.enemyAttack(enemy);
 
         switch (result) {
             case WEAPON_EMPTY ->
                     System.out.println(enemy.getLongName() + " cannot attack because its weapon is empty.");
             case PLAYER_HIT -> {
                 System.out.println(enemy.getLongName() + " attacks you for " + enemy.getWeapon().getDamage() + " damage.");
-                System.out.println("You have " + player.getHealth() + " health left.");
+                System.out.println("You have " + adventure.getHealth() + " health left.");
             }
             case PLAYER_DIED -> {
                 System.out.println(enemy.getLongName() + " attacks you for " + enemy.getWeapon().getDamage() + " damage.");

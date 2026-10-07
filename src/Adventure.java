@@ -1,24 +1,70 @@
+import java.util.ArrayList;
+
 public class Adventure {
-    static void main() {
 
+    private final Map map;
+    private final Player player;
+
+    public Adventure() {
+        map = new Map();
+        player = new Player(map.getStartRoom());
+    }
+
+    public static void main(String[] args) {
         Adventure adventure = new Adventure();
+        adventure.startGame();
+    }
 
-        // Map creator:
-        Map map = new Map();
+    public void startGame() {
+        UserInterface ui = new UserInterface(this);
+        ui.startProgram();
+    }
 
-        // Player creator:
-        Player player = new Player(map.getStartRoom());
+    public Room getCurrentRoom() {
+        return player.getCurrentRoom();
+    }
 
-        // User connection:
-        UserInterface ui = new UserInterface();
+    public boolean go(String direction) {
+        return player.move(direction);
+    }
 
-        // Runningtime:
-        boolean running = true;
+    public Item takeItem(String itemName) {
+        return player.takeItem(itemName);
+    }
 
-        // GameStart:
-        ui.welcome();
-        while (running) {
-            ui.handleCommand(player);
-        }
+    public Item dropItem(String itemName) {
+        return player.dropItem(itemName);
+    }
+
+    public EatOutcome eat(String foodName) {
+        return player.eat(foodName);
+    }
+
+    public EquipResult equip(String weaponName) {
+        return player.equip(weaponName);
+    }
+
+    public AttackResult attack(Enemy enemy) {
+        return player.attack(enemy);
+    }
+
+    public AttackResult enemyAttack(Enemy enemy) {
+        return enemy.attack(player);
+    }
+
+    public int getHealth() {
+        return player.getHealth();
+    }
+
+    public boolean isPlayerAlive() {
+        return player.isAlive();
+    }
+
+    public ArrayList<Item> getInventory() {
+        return player.getInventory();
+    }
+
+    public Weapon getEquippedWeapon() {
+        return player.getEquippedWeapon();
     }
 }
