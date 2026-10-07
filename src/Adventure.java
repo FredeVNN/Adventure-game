@@ -14,7 +14,7 @@ public class Adventure {
         UserInterface ui = new UserInterface(this);
         ui.startProgram();
     }
-//gets current room
+//gets players current room
     public Room getCurrentRoom() {
         return player.getCurrentRoom();
     }
