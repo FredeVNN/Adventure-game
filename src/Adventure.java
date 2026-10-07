@@ -4,7 +4,7 @@ public class Adventure {
 //game data:
     private final Map map;
     private final Player player;
-//constructor:
+//constructor - creates map and player:
     public Adventure() {
         map = new Map();
         player = new Player(map.getStartRoom());
@@ -18,33 +18,42 @@ public class Adventure {
     public Room getCurrentRoom() {
         return player.getCurrentRoom();
     }
-//moves player
+//passes movement request to player
     public boolean go(String direction) {
         return player.move(direction);
     }
-//takes item
+//passes item action to player
     public Item takeItem(String itemName) {
         return player.takeItem(itemName);
     }
-//drops item
     public Item dropItem(String itemName) {
         return player.dropItem(itemName);
     }
-//eats food
+//passes food action to player
     public EatOutcome eat(String foodName) {
         return player.eat(foodName);
     }
-//equips weapon
+    //gets current room description:
+    public String look() {
+        return player.getCurrentRoom().getDescription();
+    }
+    //passes weapon equip action to player
     public EquipResult equip(String weaponName) {
         return player.equip(weaponName);
     }
-//player attacks enemy
-    public AttackResult attack(Enemy enemy) {
-        return player.attack(enemy);
-    }
-//enemy attacks player
-    public AttackResult enemyAttack(Enemy enemy) {
-        return enemy.attack(player);
+
+    // Coordinates player attack and enemy counterattack:
+    public AttackOutcome attack(String enemyName) {
+
+        AttackOutcome outcome = player.attack(enemyName);
+
+        if (outcome.getPlayerAttackResult() == AttackResult.ENEMY_HIT) {
+            Enemy enemy = outcome.getEnemy();
+            AttackResult enemyAttackResult = enemy.attack(player);
+
+            return new AttackOutcome(outcome.getPlayerAttackResult(), enemyAttackResult, enemy);
+        }
+        return outcome;
     }
 //gets players health
     public int getHealth() {

@@ -1,6 +1,6 @@
 public class EatOutcome {
 
-    //eat result
+    //stores result data returned by Player eat method
     private final EatResult result;
     private final String itemName;
     private final int healthChange;

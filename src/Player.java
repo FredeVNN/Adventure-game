@@ -16,7 +16,7 @@ public class Player {
         return currentRoom;
     }
 
-    // Moves player - Direction:
+    // Moves player to connected room - Direction:
     public boolean move(String direction) {
 
         Room desiredRoom = switch (direction) {
@@ -66,7 +66,7 @@ public class Player {
         }
         return null;
     }
-    //take item that are available in current room
+    //finds and takes item from room to inventory
     public Item takeItem (String itemName) {
         Item item = currentRoom.findItemByName((itemName));
 
@@ -78,7 +78,7 @@ public class Player {
 
         return item;
     }
-    //drop item from inventory
+    //finds and moves item from inventory to room
     public Item dropItem (String itemName) {
         Item item = findItemByName(itemName);
 
@@ -95,7 +95,7 @@ public class Player {
         return equippedWeapon;
     }
 
-    //equips weapon
+    //equips weapon found in inventory
     public EquipResult equip (String weaponName) {
         Item item = findItemByName(weaponName);
 
@@ -108,7 +108,7 @@ public class Player {
         equippedWeapon = (Weapon) item;
         return EquipResult.EQUIPPED;
     }
-    //eats food:
+    //finds food, changes health, and removes eaten item - from inventory or current room
     public EatOutcome eat (String itemName) {
         Item item = findItemByName(itemName);
         boolean itemIsInInventory = item != null;
@@ -142,7 +142,7 @@ public class Player {
     public boolean isAlive() {
         return health > 0;
     }
-    //damages player
+    //applies damage and return whether player died
     public boolean hit(int damage) {
         changeHealth(-damage);
 
@@ -157,28 +157,45 @@ public class Player {
         }
     }
 
-    // Attack enemy:
-    public AttackResult attack(Enemy enemy) {
+    // Finds enemy, uses equipped weapon and returns attack result:
+    public AttackOutcome attack(String enemyName) {
+
+        Enemy enemy = null;
+
+        // Finds named enemy:
+        if (!enemyName.isBlank()) {
+            enemy = currentRoom.findEnemy(enemyName);
+
+            if (enemy == null) {
+                return new AttackOutcome(AttackResult.ENEMY_NOT_FOUND, null, null);
+            }
+        }
+        // Selects first enemy if no name is entered:
+        else if (!currentRoom.getEnemies().isEmpty()) {
+            enemy = currentRoom.getEnemies().get(0);
+        }
 
         if (equippedWeapon == null) {
-            return AttackResult.NO_WEAPON;
+            return new AttackOutcome(AttackResult.NO_WEAPON, null, enemy);
         }
 
         if (!equippedWeapon.canUse()) {
-            return AttackResult.WEAPON_EMPTY;
+            return new AttackOutcome(AttackResult.WEAPON_EMPTY, null, enemy);
         }
 
         equippedWeapon.use();
 
-        //No enemy means attacking empty air:
+        // Attacks empty air when no enemy is present:
         if (enemy == null) {
-            return AttackResult.EMPTY_AIR;
+            return new AttackOutcome(AttackResult.EMPTY_AIR, null, null);
         }
+
         boolean enemyDied = enemy.hit(equippedWeapon.getDamage());
 
         if (enemyDied) {
-            return AttackResult.ENEMY_DIED;
+            return new AttackOutcome(AttackResult.ENEMY_DIED, null, enemy);
         }
-        return AttackResult.ENEMY_HIT;
+
+        return new AttackOutcome(AttackResult.ENEMY_HIT, null, enemy);
     }
 }

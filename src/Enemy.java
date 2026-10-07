@@ -49,7 +49,7 @@ public class Enemy {
         }
         return AttackResult.PLAYER_HIT;
     }
-    //Enemy is damaged by player
+    //applies damage to enemy
     public boolean hit(int damage) {
         health = health - damage;
 

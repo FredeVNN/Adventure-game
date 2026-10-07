@@ -28,17 +28,6 @@ public class Map {
         r8.setWest(r7); r8.setEast(r9); r8.setNorth(r5);
         r9.setNorth(r6); r9.setWest(r8);
 
-        // Wrong directions:
-        r1.setWest(null); r1.setNorth(null);
-        r2.setNorth(null); r2.setSouth(null);
-        r3.setNorth(null); r3.setEast(null);
-        r4.setEast(null); r4.setWest(null);
-        r5.setWest(null); r5.setEast(null); r5.setNorth(null);
-        r6.setEast(null); r6.setWest(null);
-        r7.setSouth(null); r7.setWest(null);
-        r8.setSouth(null);
-        r9.setEast(null); r9.setSouth(null);
-
         // Start Room:
         this.startRoom = r1;
 

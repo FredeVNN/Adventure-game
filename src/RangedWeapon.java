@@ -6,12 +6,12 @@ public class RangedWeapon extends Weapon{
         super(weaponName, weaponDescription, damage);
         this.ammunition = ammunition;
     }
-//checks ammunition
+//checks if ammunition remains
     @Override
     public boolean canUse() {
         return ammunition > 0;
     }
-//uses ammunition
+//uses 1 ammunition per use
     @Override
     public void use() {
         ammunition--;
@@ -21,7 +21,7 @@ public class RangedWeapon extends Weapon{
     public String getAttackVerb() {
         return "fire";
     }
-    //gets remaining ammunition
+    //returns remaining ammunition as text.
     @Override
     public String getUsesLeftText() {
         return ammunition + " uses left.";

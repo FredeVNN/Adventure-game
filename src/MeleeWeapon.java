@@ -8,7 +8,7 @@ public class MeleeWeapon extends Weapon{
     public boolean canUse() {
         return true;
     }
-//uses melee weapon
+//melee weapon uses no ammunition therefore empty
     @Override
     public void use() {
     }

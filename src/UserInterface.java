@@ -1,8 +1,9 @@
 import java.util.Scanner;
 
 public class UserInterface {
-    //user input and game controller
+    //reads user input
     private final Scanner scanner;
+    //sends game commands to controller (adventure class)
     private final Adventure adventure;
 
     //constructor
@@ -72,7 +73,7 @@ public class UserInterface {
             case "start" -> rooms(adventure.getCurrentRoom());
             case "n", "north", "go north", "e", "east", "go east", "s", "south", "go south", "w", "west", "go west" ->
                     moveDirection(command);
-            case "look" -> lookAround(adventure.getCurrentRoom());
+            case "look" -> lookAround();
             case "take" -> takeItem(itemName);
             case "drop" -> dropItem(itemName);
             case "eat" -> eatFood(itemName);
@@ -233,11 +234,11 @@ public class UserInterface {
         }
     }
     //Outputs rooms description again
-    private void lookAround(Room room) {
-        rooms(room);
+    private void lookAround() {
+        System.out.println(adventure.look());
     }
 
-    //show room enemies
+    //show enemies in current room
     private void showEnemies(Room room) {
         if (room.getEnemies().isEmpty()) {
             System.out.println("\nThere are no enemies in this room.");
@@ -248,69 +249,48 @@ public class UserInterface {
             System.out.println("\n\t!" + enemy.getShortName() + " - " + enemy.getLongName() + "\n\t" + enemy.getDescription() );
         }
     }
-    //Player Attack:
+    // Sends attack command and prints result:
     private void attack(String enemyName) {
 
-        Room currentRoom = adventure.getCurrentRoom();
-        Enemy enemy = null;
-
-        if (!enemyName.isBlank()) {
-            enemy = currentRoom.findEnemy(enemyName);
-
-            if (enemy == null) {
-                System.out.println(
-                        "There is no enemy named '" + enemyName + "' here."
-                );
-                return;
-            }
-        }
-        //if no name is entered after attack, attack the first enemy
-        else if (!currentRoom.getEnemies().isEmpty()) {
-            enemy = currentRoom.getEnemies().get(0);
-        }
-
+        AttackOutcome outcome = adventure.attack(enemyName);
+        AttackResult result = outcome.getPlayerAttackResult();
+        Enemy enemy = outcome.getEnemy();
         Weapon weapon = adventure.getEquippedWeapon();
-        AttackResult result = adventure.attack(enemy);
 
         switch (result) {
+            case ENEMY_NOT_FOUND -> System.out.println("There is no enemy named '" + enemyName + "' here.");
             case NO_WEAPON -> System.out.println("You have no weapon equipped.");
             case WEAPON_EMPTY -> System.out.println("Your weapon can no longer be used.");
             case EMPTY_AIR -> {System.out.println("There are no enemies here. You " + weapon.getAttackVerb() + " the " + weapon.getItemName() + " at the empty air.");
                 showWeaponStatus(weapon);
             }
-            case ENEMY_HIT -> {System.out.println("You " + weapon.getAttackVerb() + " the " + weapon.getItemName() + " at " + enemy.getLongName() +  " for " + weapon.getDamage() + " damage.");
+            case ENEMY_HIT -> {System.out.println("You " + weapon.getAttackVerb() + " the " + weapon.getItemName() + " at " + enemy.getLongName() + " for " + weapon.getDamage() + " damage.");
                 showWeaponStatus(weapon);
                 System.out.println(enemy.getLongName() + " has " + enemy.getHealth() + " health left.");
-                enemyAttack(enemy);
+                showEnemyAttack(outcome);
             }
-            case ENEMY_DIED -> {
-                System.out.println("You " + weapon.getAttackVerb() + " the " + weapon.getItemName() + " at " + enemy.getLongName() + " for " + weapon.getDamage() + " damage.");
+            case ENEMY_DIED -> {System.out.println("You " + weapon.getAttackVerb() + " the " + weapon.getItemName() + " at " + enemy.getLongName() + " for " + weapon.getDamage() + " damage.");
                 showWeaponStatus(weapon);
                 System.out.println(enemy.getLongName() + " dies and drops the " + enemy.getWeapon().getItemName());
             }
-            default -> {
-            }
+            default -> {}
         }
     }
-    //Enemy attack
-    private void enemyAttack(Enemy enemy) {
-
-        AttackResult result = adventure.enemyAttack(enemy);
+    // Prints enemy counterattack result:
+    private void showEnemyAttack(AttackOutcome outcome) {
+        Enemy enemy = outcome.getEnemy();
+        AttackResult result = outcome.getEnemyAttackResult();
 
         switch (result) {
-            case WEAPON_EMPTY ->
-                    System.out.println(enemy.getLongName() + " cannot attack because its weapon is empty.");
-            case PLAYER_HIT -> {
-                System.out.println(enemy.getLongName() + " attacks you for " + enemy.getWeapon().getDamage() + " damage.");
+            case WEAPON_EMPTY -> System.out.println(enemy.getLongName() + " cannot attack because its weapon is empty.");
+            case PLAYER_HIT -> {System.out.println(enemy.getLongName() + " attacks you for " + enemy.getWeapon().getDamage() + " damage.");
                 System.out.println("You have " + adventure.getHealth() + " health left.");
             }
-            case PLAYER_DIED -> {
-                System.out.println(enemy.getLongName() + " attacks you for " + enemy.getWeapon().getDamage() + " damage.");
+            case PLAYER_DIED -> {System.out.println(enemy.getLongName() + " attacks you for " + enemy.getWeapon().getDamage() + " damage.");
                 System.out.println("You died. Game over.");
                 System.exit(0);
             }
-            default -> {
-            }
+            default -> {}
         }
     }
 
