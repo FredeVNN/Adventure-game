@@ -222,11 +222,9 @@ public class UserInterface {
             System.out.println("That was the weapon's last use.");
         }
     }
-    //Describes enemies in room if look command is used
+    //Outputs rooms description again
     private void lookAround(Room room) {
         rooms(room);
-        showItems(room);
-        showEnemies(room);
     }
     private void showEnemies(Room room) {
         if (room.getEnemies().isEmpty()) {
