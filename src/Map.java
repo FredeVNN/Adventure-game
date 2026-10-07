@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Map {
 
     // Variables declaration:
@@ -71,18 +69,25 @@ public class Map {
         r9.addItem(noodles);
 
         // Create weapons:
-        Weapon BowAndArrow = new BowAndArrow("Hunters Bow", "From hunting earlier", 10, 3);
-        Weapon PharaohsSword = new PharaohsSword("Pharaoh's Sword", "Wield this to slay your enemies.", 15);
-        Weapon ThrongStars = new ThrowingStars("Throwing Stars", "Throw this at enemies", 30, 3);
+        Weapon huntersBow = new RangedWeapon("Hunters Bow", "From hunting earlier", 20, 3);
+        Weapon PharaohsSword = new MeleeWeapon("Pharaoh's Sword", "Wield this to slay your enemies.", 15);
+        Weapon ThrowingStars = new RangedWeapon("Throwing Stars", "Throw this at enemies", 30, 3);
 
         // Add weapons to rooms:
-        r1.addItem(BowAndArrow);
+        r1.addItem(huntersBow);
         r4.addItem(PharaohsSword);
-        r9.addItem(ThrongStars);
+        r9.addItem(ThrowingStars);
+
+        //Creates enemy
+        Enemy mummy = new Enemy("Mummy", "The ancient mummy", "It rises from its sarcophagus", 30, PharaohsSword, r4);
+        Enemy ninjas = new Enemy("ninjas","the cyber ninjas", "a futuristic group of ninjas blocks your path", 50, ThrowingStars, r9);
+
+        //Add enemies to rooms
+        r4.addEnemy(mummy);
+        r9.addEnemy(ninjas);
 
     }
 
-    // Constructor:
     public Room getStartRoom() {
         return startRoom;
     }

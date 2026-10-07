@@ -38,6 +38,8 @@ public class UserInterface {
             }
             room.setDiscoveredRoom(true);
         }
+        showEnemies(room);
+
         System.out.println("─".repeat(room.getDescription().length()));
         System.out.println("\u001B[1m\u001B[35m\n\t• " + room.getGuide() + " •\u001B[0m");
         System.out.println("\u001B[1m\u001B[35m\t• Type [n] to move North  •  Type [e] to move East  •  Type [s] to move South  •  Type [w] to move West •\u001B[0m");
@@ -47,7 +49,7 @@ public class UserInterface {
     public void handleCommand(Player player) {
         String command = scanner.nextLine().toLowerCase();
 
-        if(command.startsWith("go ")) {
+        if (command.startsWith("go ")) {
             command = command.substring(3);
         }
 
@@ -63,11 +65,11 @@ public class UserInterface {
             case "start" -> rooms(player.getCurrentRoom());
             case "n", "north", "go north", "e", "east", "go east", "s", "south", "go south", "w", "west", "go west" ->
                     moveDirection(player, command);
-            case "look" -> System.out.println(player.getCurrentRoom().getDescription());
+            case "look" -> lookAround(player.getCurrentRoom());
             case "take" -> takeItem(player, itemName);
             case "drop" -> dropItem(player, itemName);
             case "eat" -> eatFood(player, itemName);
-            case "attack" -> attack(player);
+            case "attack" -> attack(player, itemName);
             case "equip" -> equipWeapon(player, itemName);
             case "health" -> showHealth(player);
             case "i" -> showInventory(player);
@@ -104,42 +106,34 @@ public class UserInterface {
 
     // Eat item:
     public void eatFood(Player player, String foodName) {
-        Room currentRoom = player.getCurrentRoom();
+        EatOutcome outcome = player.eat(foodName);
 
+        switch (outcome.getResult()) {
+            case NOT_FOUND ->
+                    System.out.println("There is nothing like '" + outcome.getItemName() + "' to eat around here.");
+            case NOT_FOOD -> System.out.println("You cannot eat the " + outcome.getItemName());
+            case EATEN -> {
+                System.out.println("You ate the " + outcome.getItemName());
+                if (outcome.getHealthChange() > 0) {
+                    System.out.println("You feel better.");
+                } else if (outcome.getHealthChange() < 0) {
+                    System.out.println("That was a mistake");
+                }
+                System.out.println("Your health is now: " + player.getHealth());
 
-        Item item = currentRoom.findItemByName(foodName);
-        if (item == null) {
-            item = player.findItemByName(foodName);
+                if (!player.isAlive()) {
+                    System.out.println("The food was deadly. You died. Game over.");
+                    System.exit(0);
+                }
+            }
         }
-
-        if (item == null) {
-            System.out.println("There is nothing like '" + foodName + "' to eat around here.");
-            return;
-        }
-
-        if (!(item instanceof Food)) {
-            System.out.println("You cannot eat the " + item.getItemName() + ".");
-            return;
-        }
-
-        Food food = (Food) item;
-
-        player.health = player.health + food.getHealthPoints();
-
-        if (currentRoom.findItemByName(foodName) != null) {
-            currentRoom.removeItem(food);
-        } else {
-            player.removeFromInventory(food);
-        }
-
-        System.out.println("You ate the " + food.getItemName() + ". Now your health is: " + player.health);
     }
 
-    // Health:
+    // shows players health:
     public void showHealth(Player player) {
-        System.out.println("Your healthpoints are: " + player.health);
+        System.out.println("Your healthpoints are: " + player.getHealth());
 
-        int h = player.health;
+        int h = player.getHealth();
 
         if(h >= 100){
             System.out.println("you are in perfect health");
@@ -200,71 +194,136 @@ public class UserInterface {
 
         if (player.getInventory().isEmpty()) {
             System.out.println("Your inventory is empty. Explore the maze, find useful items, and take them with you.");
-            return;
         }
-        for (Item item : player.getInventory()) {
-            System.out.println("+ " + item.getItemName());
-        }
-    }
-
-    // Equip weapon:
-    public void equipWeapon(Player player, String weaponName) {
-
-        Item item = null;
-
-        for (Item inventoryItem : player.getInventory()) {
-            if (inventoryItem.getItemName().equalsIgnoreCase(weaponName)) {
-                item = inventoryItem;
-                break;
+        else {
+            for (Item item : player.getInventory()) {
+                System.out.println("+ " + item.getItemName());
             }
         }
-
-        if (item == null) {
-            System.out.println("You do not have '" + weaponName + "' in your inventory.");
+        Weapon equippedWeapon = player.getEquippedWeapon();
+        if (equippedWeapon == null) {
+            System.out.println("\nEquipped: nothing");
         }
-
-        else if (item instanceof Weapon) {
-            player.equipWeapon((Weapon) item);
-            System.out.println("You equip the " + item.getItemName() + ".");
-        }
-
         else {
-            System.out.println("You cannot equip the " + item.getItemName() + " because it is not a weapon.");
+            System.out.println("\nEquipped: " + equippedWeapon.getItemName());
         }
     }
 
-    // Attac:
-    public void attack(Player player) {
+    // tells possibilities of equip:
+    public void equipWeapon(Player player, String weaponName) {
+
+        EquipResult result = player.equip(weaponName);
+        switch(result) {
+            case NOT_FOUND -> System.out.println("You do not have '" + weaponName + "' in your inventory.");
+            case NOT_WEAPON -> System.out.println("You cannot equip the " + weaponName + " because it is not a weapon.");
+            case EQUIPPED -> System.out.println("You equip the " + player.getEquippedWeapon().getItemName());
+        }
+    }
+    //Tells the weapons last use and ammunition
+    private void showWeaponStatus (Weapon weapon) {
+        String usesLeftText = weapon.getUsesLeftText();
+        if (!usesLeftText.isBlank()) {
+            System.out.println(usesLeftText);
+        }
+        if (!weapon.canUse()) {
+            System.out.println("That was the weapon's last use.");
+        }
+    }
+    //Describes enemies in room if look command is used
+    private void lookAround(Room room) {
+        System.out.println(room.getDescription());
+        showEnemies(room);
+    }
+    private void showEnemies(Room room) {
+        if (room.getEnemies().isEmpty()) {
+            System.out.println("\n There are no enemies in this room.");
+            return;
+        }
+        System.out.println("\n Enemies in this room:");
+        for (Enemy enemy : room.getEnemies()) {
+            System.out.println("\n\t!" + enemy.getShortName() + " - " + enemy.getLongName() + "\n\t" + enemy.getDescription() );
+        }
+    }
+
+
+    //Player Attack:
+    public void attack(Player player, String enemyName) {
+
+        Room currentRoom = player.getCurrentRoom();
+        Enemy enemy = null;
+
+        if (!enemyName.isBlank()) {
+            enemy = currentRoom.findEnemy(enemyName);
+
+            if (enemy == null) {
+                System.out.println(
+                        "There is no enemy named '" + enemyName + "' here."
+                );
+                return;
+            }
+        }
+        //if no name is intered after attack, attack the first enemy
+        else if (!currentRoom.getEnemies().isEmpty()) {
+            enemy = currentRoom.getEnemies().get(0);
+        }
 
         Weapon weapon = player.getEquippedWeapon();
+        AttackResult result = player.attack(enemy);
 
-        if (weapon == null) {
-            System.out.println("You have no weapon equipped.");
-            return;
+        switch (result) {
+            case NO_WEAPON -> System.out.println("You have no weapon equipped.");
+            case WEAPON_EMPTY -> System.out.println("Your weapon can no longer be used.");
+            case EMPTY_AIR -> {System.out.println("There are no enemies here. You attack the empty air with the " + weapon.getItemName() + ".");
+                showWeaponStatus(weapon);
+            }
+            case ENEMY_HIT -> {System.out.println("You attack " + enemy.getLongName() + " with the " + weapon.getItemName() + " for " + weapon.getDamage() + " damage.");
+                showWeaponStatus(weapon);
+                System.out.println(enemy.getLongName() + " has " + enemy.getHealth() + " health left.");
+                enemyAttack(player, enemy);
+            }
+            case ENEMY_DIED -> {
+                System.out.println("You attack " + enemy.getLongName() + " with the " + weapon.getItemName() + " for " + weapon.getDamage() + " damage.");
+                showWeaponStatus(weapon);
+                System.out.println(enemy.getLongName() + " dies and drops the " + enemy.getWeapon().getItemName());
+            }
+            default -> {
+            }
         }
-
-        if (!weapon.canUse()) {
-            System.out.println("Your weapon is out of ammunition.");
-            return;
-        }
-
-        player.attack();
-
-        System.out.println("You attack with the " + weapon.getItemName() + ".");
-        System.out.println("You deal " + weapon.getDamage() + " damage.");
     }
+    //Enemy attack
+    private void enemyAttack(Player player, Enemy enemy) {
+
+        AttackResult result = enemy.attack(player);
+
+        switch (result) {
+            case WEAPON_EMPTY ->
+                    System.out.println(enemy.getLongName() + " cannot attack because its weapon is empty.");
+            case PLAYER_HIT -> {
+                System.out.println(enemy.getLongName() + " attacks you for " + enemy.getWeapon().getDamage() + " damage.");
+                System.out.println("You have " + player.getHealth() + " health left.");
+            }
+            case PLAYER_DIED -> {
+                System.out.println(enemy.getLongName() + " attacks you for " + enemy.getWeapon().getDamage() + " damage.");
+                System.out.println("You died. Game over.");
+                System.exit(0);
+            }
+            default -> {
+            }
+        }
+    }
+
 
     // Show help - list of commands:
     public void showHelp() {
         System.out.println("─────────────────────────────────────────────────────────");
-        System.out.println("AVAILEBLE COMMANDS\n");
+        System.out.println("AVAILABLE COMMANDS\n");
         System.out.println("[start]                 ➤   Start the game");
         System.out.println("[n] [north] [go north]  ➤   Move north");
         System.out.println("[e] [east] [go east]    ➤   Move east");
         System.out.println("[s] [south] [go south]  ➤   Move south");
         System.out.println("[w] [west] [go west]    ➤   Move west");
         System.out.println("[eat + food]            ➤   Adds or removes health");
-        System.out.println("[attack]                ➤   Attacks the enemy");
+        System.out.println("[attack + enemy]        ➤   Attacks the enemy");
         System.out.println("[health]                ➤   Show health points");
         System.out.println("[equip]                 ➤   Equips the weapon");
         System.out.println("[take + item]           ➤   Add item to inventory");
@@ -274,5 +333,5 @@ public class UserInterface {
         System.out.println("[exit]                  ➤   Close the game");
         System.out.println("─────────────────────────────────────────────────────────\n");
     }
-
 }
+

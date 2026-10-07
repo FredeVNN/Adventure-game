@@ -10,4 +10,13 @@ public class EatOutcome {
         this.itemName = itemName;
         this.healthChange = healthChange;
     }
+    public EatResult getResult() {
+        return result;
+    }
+    public String getItemName() {
+        return itemName;
+    }
+    public int getHealthChange() {
+        return healthChange;
+    }
 }

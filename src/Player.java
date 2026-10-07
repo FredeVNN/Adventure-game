@@ -2,13 +2,16 @@ import java.util.ArrayList;
 
 public class Player {
 
-    // Current Room:
+
     private Room currentRoom;
+    private Weapon equippedWeapon;
+    private int health = 100;
 
     public Player(Room startRoom) {
         this.currentRoom = startRoom;
     }
 
+    // Current Room:
     public Room getCurrentRoom() {
         return currentRoom;
     }
@@ -55,34 +58,96 @@ public class Player {
         return null;
     }
 
-    // Player life:
-    int health = 10;
-
   // Equip weapon:
-
-    private Weapon equippedWeapon;
-
     public Weapon getEquippedWeapon() {
         return equippedWeapon;
     }
 
-    public void equipWeapon(Weapon weapon) {
-        equippedWeapon = weapon;
+    public EquipResult equip (String weaponName) {
+        Item item = findItemByName(weaponName);
+
+        if (item == null) {
+            return EquipResult.NOT_FOUND;
+        }
+        if (!(item instanceof Weapon)) {
+            return EquipResult.NOT_WEAPON;
+        }
+        equippedWeapon = (Weapon) item;
+        return EquipResult.EQUIPPED;
+    }
+
+    public EatOutcome eat (String itenName) {
+        Item item = findItemByName(itenName);
+        boolean itemIsInInventory = item != null;
+        if (item == null) {
+            item = currentRoom.findItemByName(itenName);
+        }
+
+        if (item == null) {
+            return new EatOutcome(EatResult.NOT_FOUND,itenName,0);
+        }
+        if (!(item instanceof Food)) {
+            return new EatOutcome(EatResult.NOT_FOOD,item.getItemName(),0);
+        }
+        Food food = (Food) item;
+
+        health = health + food.getHealthPoints();
+
+        if (itemIsInInventory) {
+            removeFromInventory(food);
+        }
+        else {
+            currentRoom.removeItem(food);
+        }
+        return new EatOutcome(EatResult.EATEN,food.getItemName(), food.getHealthPoints());
+    }
+
+    public int getHealth() {
+        return health;
+    }
+    public boolean isAlive() {
+        return health > 0;
+    }
+    public boolean hit(int damage) {
+        health = health - damage;
+
+        if (health <= 0) {
+            health = 0;
+            return true;
+        }
+        return false;
+    }
+
+    public void changeHealth (int healthChange) {
+        health = health + healthChange;
+
+        if (health < 0) {
+            health = 0;
+        }
     }
 
     // Attack:
-    public void attack() {
+    public AttackResult attack(Enemy enemy) {
 
         if (equippedWeapon == null) {
-            return;
+            return AttackResult.NO_WEAPON;
         }
 
         if (!equippedWeapon.canUse()) {
-            return;
+            return AttackResult.WEAPON_EMPTY;
         }
 
         equippedWeapon.use();
 
-        int damage = equippedWeapon.getDamage();
+        //No enemy means attacking empty air:
+        if (enemy == null) {
+            return AttackResult.EMPTY_AIR;
+        }
+        boolean enemyDied = enemy.hit(equippedWeapon.getDamage());
+
+        if (enemyDied) {
+            return AttackResult.ENEMY_DIED;
+        }
+        return AttackResult.ENEMY_HIT;
     }
 }
