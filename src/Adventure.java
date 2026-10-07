@@ -9,12 +9,6 @@ public class Adventure {
         map = new Map();
         player = new Player(map.getStartRoom());
     }
-
-    public static void main(String[] args) {
-        Adventure adventure = new Adventure();
-        adventure.startGame();
-    }
-
     public void startGame() {
         UserInterface ui = new UserInterface(this);
         ui.startProgram();
