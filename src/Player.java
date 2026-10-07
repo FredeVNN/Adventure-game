@@ -2,21 +2,21 @@ import java.util.ArrayList;
 
 public class Player {
 
-
+//player info:
     private Room currentRoom;
     private Weapon equippedWeapon;
     private int health = 100;
-
+//constructor:
     public Player(Room startRoom) {
         this.currentRoom = startRoom;
     }
 
-    // Current Room:
+    // gets Current Room:
     public Room getCurrentRoom() {
         return currentRoom;
     }
 
-    // Move - Direction:
+    // Moves player - Direction:
     public boolean move(String direction) {
 
         Room desiredRoom = switch (direction) {
@@ -42,11 +42,12 @@ public class Player {
     public void addToInventory(Item item) {
         inventory.add(item);
     }
+    //gets inventory:
     public ArrayList<Item> getInventory() {
         return inventory;
     }
 
-    // Removes an item from the player's inventory:
+    // Removes an item from the players inventory:
     public void removeFromInventory(Item item) {
         inventory.remove(item);
 
@@ -55,7 +56,7 @@ public class Player {
         }
     }
 
-    // Search for items:
+    // Search for items in inventory:
     public Item findItemByName(String itemName) {
 
         for (Item item : inventory) {
@@ -89,11 +90,12 @@ public class Player {
 
         return item;
     }
-    // Equip weapon:
+    //gets Equipped weapon:
     public Weapon getEquippedWeapon() {
         return equippedWeapon;
     }
 
+    //equips weapon
     public EquipResult equip (String weaponName) {
         Item item = findItemByName(weaponName);
 
@@ -106,16 +108,16 @@ public class Player {
         equippedWeapon = (Weapon) item;
         return EquipResult.EQUIPPED;
     }
-
-    public EatOutcome eat (String itenName) {
-        Item item = findItemByName(itenName);
+    //eats food:
+    public EatOutcome eat (String itemName) {
+        Item item = findItemByName(itemName);
         boolean itemIsInInventory = item != null;
         if (item == null) {
-            item = currentRoom.findItemByName(itenName);
+            item = currentRoom.findItemByName(itemName);
         }
 
         if (item == null) {
-            return new EatOutcome(EatResult.NOT_FOUND,itenName,0);
+            return new EatOutcome(EatResult.NOT_FOUND,itemName,0);
         }
         if (!(item instanceof Food)) {
             return new EatOutcome(EatResult.NOT_FOOD,item.getItemName(),0);
@@ -132,19 +134,21 @@ public class Player {
         }
         return new EatOutcome(EatResult.EATEN,food.getItemName(), food.getHealthPoints());
     }
-
+    //gets player health
     public int getHealth() {
         return health;
     }
+    //checks if player is alive
     public boolean isAlive() {
         return health > 0;
     }
+    //damages player
     public boolean hit(int damage) {
         changeHealth(-damage);
 
         return !isAlive();
     }
-
+    //changes player health
     private void changeHealth (int healthChange) {
         health = health + healthChange;
 
@@ -153,7 +157,7 @@ public class Player {
         }
     }
 
-    // Attack:
+    // Attack enemy:
     public AttackResult attack(Enemy enemy) {
 
         if (equippedWeapon == null) {

@@ -1,14 +1,16 @@
 import java.util.Scanner;
 
 public class UserInterface {
-
+    //user input and game controller
     private final Scanner scanner;
     private final Adventure adventure;
 
+    //constructor
     public UserInterface(Adventure adventure) {
         this.adventure = adventure;
         this.scanner = new Scanner(System.in);
     }
+    //starts command loop
     public void startProgram() {
         welcome();
 
@@ -28,7 +30,7 @@ public class UserInterface {
         System.out.println("\u001B[1m\u001B[35m\t• Type [start] to begin your journey  •  Type [exit] to leave the maze  •\n\u001B[0m");
     }
 
-    // Room number and name:
+    // shows room:
     private void rooms(Room room) {
         System.out.println("\n[ " + room.getRoomNum() + " ]" + "\t\t>> " + room.getName() + " <<");
         System.out.println("─".repeat(room.getRoomNum().length() + room.getName().length() + 15));
@@ -50,7 +52,7 @@ public class UserInterface {
         System.out.println("\u001B[1m\u001B[35m\t• Type [n] to move North  •  Type [e] to move East  •  Type [s] to move South  •  Type [w] to move West •\u001B[0m");
     }
 
-    // Handles commands:
+    // reads and handles commands:
     private void handleCommand() {
         String command = scanner.nextLine().toLowerCase();
 
@@ -89,7 +91,7 @@ public class UserInterface {
         }
     }
 
-    // Shows direction moved:
+    // info for player moves:
     private void moveDirection(String direction) {
 
         boolean moving = adventure.go(direction);
@@ -109,7 +111,7 @@ public class UserInterface {
         }
     }
 
-    // Eat item:
+    // Eat food:
     private void eatFood(String foodName) {
         EatOutcome outcome = adventure.eat(foodName);
 
@@ -210,7 +212,7 @@ public class UserInterface {
         }
     }
 
-    // tells possibilities of equip:
+    // tells posibilites of equip:
     private void equipWeapon(String weaponName) {
 
         EquipResult result = adventure.equip(weaponName);
@@ -234,6 +236,8 @@ public class UserInterface {
     private void lookAround(Room room) {
         rooms(room);
     }
+
+    //show room enemies
     private void showEnemies(Room room) {
         if (room.getEnemies().isEmpty()) {
             System.out.println("\nThere are no enemies in this room.");

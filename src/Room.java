@@ -1,13 +1,16 @@
 import java.util.ArrayList;
 
 public class Room {
+    //room information
     private String roomNum;
     private String roomName;
     private String roomDescription;
     private String guide;
     private boolean discoveredRoom = false;
+    //room content
     private ArrayList<Item> items;
     private ArrayList<Enemy> enemies;
+    //room directions
     private Room north, south, east, west;
 
     // Constructor:
@@ -19,6 +22,7 @@ public class Room {
         this.items = new ArrayList<>();
         this.enemies = new ArrayList<>();
     }
+    //get connected rooms:
     public Room getNorth() {
         return north;
     }
@@ -48,7 +52,7 @@ public class Room {
         return roomNum;
     }
 
-    // Set Direction:
+    // Set room connections:
     public void setNorth(Room room) {
         this.north = room;
     }
@@ -65,20 +69,20 @@ public class Room {
         this.west = room;
     }
 
-    // Discover rooms:
+    // checks if room is discovered:
     public boolean isDiscoveredRoom() {
         return discoveredRoom;
     }
-
+    //changes the discovered status
     public void setDiscoveredRoom(boolean discoveredRoom) {
         this.discoveredRoom = discoveredRoom;
     }
 
-    // Add items to rooms:
+    // gets room items:
     public ArrayList<Item> getItems() {
         return items;
     }
-
+    //adds item to room
     public void addItem(Item item) {
         items.add(item);
     }
@@ -88,7 +92,7 @@ public class Room {
         items.remove(item);
     }
 
-    // Search for items:
+    // Search for items in room:
     public Item findItemByName(String itemName) {
 
         for (Item item : items) {
@@ -98,15 +102,19 @@ public class Room {
         }
         return null;
     }
+    //gets room enemies
     public ArrayList<Enemy> getEnemies() {
         return enemies;
     }
+    //adds enemy ro room:
     public void addEnemy(Enemy enemy) {
         enemies.add(enemy);
     }
+    //removes enemy from room
     public void removeEnemy(Enemy enemy) {
         enemies.remove(enemy);
     }
+    //finds enemy in room:
     public Enemy findEnemy(String shortName) {
         for (Enemy enemy : enemies) {
             if (enemy.getShortName().equalsIgnoreCase(shortName)) {

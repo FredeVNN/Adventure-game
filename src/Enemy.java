@@ -1,11 +1,15 @@
 public class Enemy {
+    //enemy information
     private final String shortName;
     private final String longName;
     private final String description;
     private int health;
+
+    //enemy weapon and room
     private final Weapon weapon;
     private final Room room;
 
+    //constructor
     public Enemy (String shortname, String longName, String description, int health, Weapon weapon, Room room) {
         this.shortName = shortname;
         this.longName = longName;
@@ -14,6 +18,7 @@ public class Enemy {
         this.weapon = weapon;
         this.room = room;
     }
+    //gets enemy information
     public String getShortName() {
         return shortName;
     }
@@ -29,6 +34,7 @@ public class Enemy {
     public Weapon getWeapon() {
         return weapon;
     }
+
     //Enemy attacks player
     public AttackResult attack(Player player) {
         if (!weapon.canUse()) {

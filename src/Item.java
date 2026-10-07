@@ -1,7 +1,6 @@
-import java.util.ArrayList;
 
 public class Item {
-
+//item information
     private String itemName;
     private String itemDescription;
 
@@ -11,11 +10,11 @@ public class Item {
         this.itemDescription = itemDescription;
     }
 
-    // Getters:
+    // Gets item name:
     public String getItemName() {
         return itemName;
     }
-
+    //gets item description
     public String getItemDescription() {
         return itemDescription;
     }

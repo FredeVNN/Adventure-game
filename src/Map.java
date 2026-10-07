@@ -1,9 +1,9 @@
 public class Map {
 
-    // Variables declaration:
+    // room variables
     private Room startRoom;
     private Room r1, r2, r3, r4, r5, r6, r7, r8, r9;
-
+    //constructor:
     public Map() {
 
         // Create Rooms:
@@ -86,7 +86,7 @@ public class Map {
         r9.addEnemy(ninjas);
 
     }
-
+//gets start room
     public Room getStartRoom() {
         return startRoom;
     }
