@@ -29,15 +29,12 @@ public class UserInterface {
 
             // Room description and items:
             System.out.println(room.getDescription());
-            if (!room.getItems().isEmpty()) {
-                System.out.println("\nYou also discover:");
-                for (Item item : room.getItems()) {
-                    System.out.println("\n\t★ " + item.getItemName() + "\n\t\u001B[3m  " + item.getItemDescription() + "\u001B[0m");
-
-                }
-            }
             room.setDiscoveredRoom(true);
         }
+        else {
+            System.out.println("You return to " + room.getName());
+        }
+        showItems(room);
         showEnemies(room);
 
         System.out.println("─".repeat(room.getDescription().length()));
@@ -147,43 +144,39 @@ public class UserInterface {
         }
     }
 
-    // Take item:
+    // Take item
     public void takeItem(Player player, String itemName) {
 
-        Room currentRoom = player.getCurrentRoom();
+        Item item = player.takeItem(itemName);
 
-        Item item = currentRoom.findItemByName(itemName);
-
-        if (item != null) {
-            currentRoom.removeItem(item);
-            player.addToInventory(item);
-
-            System.out.println("You picked up the " + item.getItemName() + ".");
-        } else {
-            System.out.println("There is no " + itemName + " here.");
+        if (item == null) {
+            System.out.println("There is no " + itemName + " to take here.");
+        }
+        else {
+            System.out.println("You picked up the " + item.getItemName());
         }
     }
 
     // Drop item:
     public void dropItem(Player player, String itemName) {
+        Item item = player.dropItem(itemName);
 
-        Room currentRoom = player.getCurrentRoom();
-
-        Item item = null;
-
-        for (Item inventoryItem : player.getInventory()) {
-            if (inventoryItem.getItemName().equalsIgnoreCase(itemName)) {
-                item = inventoryItem;
-                break;
-            }
+        if (item == null) {
+            System.out.println("You do not have " + itemName + " in your inventory");
         }
-
-        if (item != null) {
-            player.removeFromInventory(item);
-            currentRoom.addItem(item);
-            System.out.println("You dropped the " + item.getItemName() + ".");
-        } else {
-            System.out.println("You don't have " + itemName + " in your inventory.");
+        else {
+            System.out.println("You dropped the " + item.getItemName());
+        }
+    }
+    //Show items in room
+    private void showItems (Room room) {
+        if (room.getItems().isEmpty()) {
+            System.out.println("\n There are no items in this room.");
+            return;
+        }
+        System.out.println("\n You also discover: ");
+        for (Item item: room.getItems()) {
+            System.out.println("\n\t* " + item.getItemName() + item.getItemDescription());
         }
     }
 
@@ -231,21 +224,20 @@ public class UserInterface {
     }
     //Describes enemies in room if look command is used
     private void lookAround(Room room) {
-        System.out.println(room.getDescription());
+        rooms(room);
+        showItems(room);
         showEnemies(room);
     }
     private void showEnemies(Room room) {
         if (room.getEnemies().isEmpty()) {
-            System.out.println("\n There are no enemies in this room.");
+            System.out.println("\nThere are no enemies in this room.");
             return;
         }
-        System.out.println("\n Enemies in this room:");
+        System.out.println("\nEnemies in this room:");
         for (Enemy enemy : room.getEnemies()) {
             System.out.println("\n\t!" + enemy.getShortName() + " - " + enemy.getLongName() + "\n\t" + enemy.getDescription() );
         }
     }
-
-
     //Player Attack:
     public void attack(Player player, String enemyName) {
 

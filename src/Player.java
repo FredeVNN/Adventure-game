@@ -36,8 +36,6 @@ public class Player {
     public void addToInventory(Item item) {
         inventory.add(item);
     }
-
-
     public ArrayList<Item> getInventory() {
         return inventory;
     }
@@ -61,8 +59,31 @@ public class Player {
         }
         return null;
     }
+    //take item that are available in current room
+    public Item takeItem (String itemName) {
+        Item item = currentRoom.findItemByName((itemName));
 
-  // Equip weapon:
+        if (item == null) {
+            return null;
+        }
+        currentRoom.removeItem(item);
+        addToInventory(item);
+
+        return item;
+    }
+    //drop item from inventory
+    public Item dropItem (String itemName) {
+        Item item = findItemByName(itemName);
+
+        if (item == null) {
+            return null;
+        }
+        removeFromInventory(item);
+        currentRoom.addItem(item);
+
+        return item;
+    }
+    // Equip weapon:
     public Weapon getEquippedWeapon() {
         return equippedWeapon;
     }
