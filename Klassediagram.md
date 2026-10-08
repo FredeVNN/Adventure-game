@@ -227,8 +227,8 @@ classDiagram
         NOT_WEAPON
         EQUIPPED
     }
-
-%% <|-- betyder arv: Klassen til venstre er superklassen
+%%nedenfor er relationerne, laves med notes til future self use.
+%% <|-- betyder arv - Klassen til venstre er superklassen
     Item <|-- Food
     Item <|-- Weapon
     Weapon <|-- MeleeWeapon
@@ -276,7 +276,7 @@ classDiagram
 %% En enemy har altid præcis et weapon
     Enemy "1" --> "1" Weapon
 
-%% Enemy bruger Player som parameter når den angriber
+%% Enemy bruger Player som parameter, når den angriber
     Enemy ..> Player
 
 %% Player returnerer EatOutcome fra metoden eat
@@ -296,10 +296,10 @@ classDiagram
 %% EatOutcome indeholder et EatResult
     EatOutcome "1" --> "1" EatResult
 
-%% AttackOutcome indeholder spillerens resultat
-%% og hvis enemy slår igen også resultatet af modangrebet
+%% AttackOutcome indeholder resultatet af spillerens angreb
+%% og eventuelt resultatet af enemys modangreb
     AttackOutcome --> "1..2" AttackResult
 
-%% AttackOutcome kan indeholde den fjende der blev angrebet
+%% AttackOutcome kan indeholde den enemy, der blev angrebet
     AttackOutcome "1" --> "0..1" Enemy
 ```
