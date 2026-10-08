@@ -1,27 +1,8 @@
 ```mermaid
 classDiagram
     class Main {
-        +main(String[] args)$ void
+        +main(String[] args) void$
     }
-
-    class Adventure {
-        -Map map
-        -Player player
-        +Adventure()
-        +startGame() void
-        +getCurrentRoom() Room
-        +go(String direction) boolean
-        +takeItem(String itemName) Item
-        +dropItem(String itemName) Item
-        +eat(String foodName) EatOutcome
-        +look() String
-        +equip(String weaponName) EquipResult
-        +attack(String enemyName) AttackOutcome
-        +getHealth() int
-        +isPlayerAlive() boolean
-        +getInventory() ArrayList~Item~
-        +getEquippedWeapon() Weapon 
-        }
 
     class UserInterface {
         -Scanner scanner
@@ -45,6 +26,25 @@ classDiagram
         -attack(String enemyName) void
         -showEnemyAttack(AttackOutcome outcome) void
         +showHelp() void
+    }
+
+    class Adventure {
+        -Map map
+        -Player player
+        +Adventure()
+        +startGame() void
+        +getCurrentRoom() Room
+        +go(String direction) boolean
+        +takeItem(String itemName) Item
+        +dropItem(String itemName) Item
+        +eat(String foodName) EatOutcome
+        +look() String
+        +equip(String weaponName) EquipResult
+        +attack(String enemyName) AttackOutcome
+        +getHealth() int
+        +isPlayerAlive() boolean
+        +getInventory() ArrayList~Item~
+        +getEquippedWeapon() Weapon
     }
 
     class Map {
@@ -228,7 +228,7 @@ classDiagram
         EQUIPPED
     }
 %%nedenfor er relationerne, laves med notes til future self use.
-%% <|-- betyder arv - Klassen til venstre er superklassen
+%% <|-- betyder arv -  Klassen til venstre er superklassen
     Item <|-- Food
     Item <|-- Weapon
     Weapon <|-- MeleeWeapon
@@ -296,8 +296,8 @@ classDiagram
 %% EatOutcome indeholder et EatResult
     EatOutcome "1" --> "1" EatResult
 
-%% AttackOutcome indeholder resultatet af spillerens angreb
-%% og eventuelt resultatet af enemys modangreb
+%% AttackOutcome indeholder spillerens resultat
+%% og hvis enemy slår igen også resultatet af modangrebet
     AttackOutcome --> "1..2" AttackResult
 
 %% AttackOutcome kan indeholde den enemy, der blev angrebet
