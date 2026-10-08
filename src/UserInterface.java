@@ -4,7 +4,7 @@ public class UserInterface {
     //reads user input
     private final Scanner scanner;
     //sends game commands to controller (adventure class)
-    private final Adventure adventure;
+    private Adventure adventure;
 
     //constructor
     public UserInterface(Adventure adventure) {
@@ -61,6 +61,28 @@ public class UserInterface {
             command = command.substring(3);
         }
 
+        if (command.contains("mammoth") || command.contains("falcon") || command.contains("monkey")) {
+
+            switch (command) {
+                case "mammoth, falcon, monkey", "mammoth, monkey, falcon" -> {
+                    System.out.println("The engines roar to life, and the space station begins to shake. A bright flash fills the room as the ship tears through time and space. When the light fades, you find yourself back in your own timeline. You return to your clan, but nobody believes the incredible journey you have just been through. To them, you were only gone for a short while, but you know you have travelled through time, explored strange worlds and escaped the Time Maze. You made it home!");
+                    System.exit(0);
+                }
+                case "falcon, monkey, mammoth", "falcon, mammoth, monkey" -> {
+                    System.out.println("The ship powers up, but something feels wrong. The screens flicker, and the space station begins to spin out of control. Maybe the animals were supposed to be entered in a different order to escape the maze? Before you can figure it out, the alarms grow louder, and suddenly, everything goes black. When you open your eyes, you find yourself back at the beginning of the Time Maze. Your journey starts all over again…");
+                    this.adventure = new Adventure();
+                    rooms(adventure.getCurrentRoom());
+                }
+                case "monkey, mammoth, falcon", "monkey, falcon, mammoth" -> {
+                    System.out.println("You enter the code, and the control panel begins to flash red. A loud alarm echoes through the space station as the engines overheat. Before you can react, the ship explodes in a blinding flash. Your journey through time has come to a fatal end.");
+                    System.out.println("! GAME OVER !");
+                    System.exit(0);
+                }
+                default -> System.out.println("\nYou entered the animals, but the order or format seems wrong. Try again like: falcon, monkey, mammoth");
+            }
+            return; // Stopper metoden her, så vi ikke kører standard-logikken nedenfor!
+        }
+
         // Splits the input into command and item name:
         String[] parts = command.split(" ", 2);
 
@@ -100,13 +122,6 @@ public class UserInterface {
         if (moving) {
             Room currentRoom = adventure.getCurrentRoom();
             rooms(currentRoom);
-
-            if (currentRoom.getRoomNum().equals("ROOM 05")) {
-                System.out.println("\nCongratulations!");
-                System.out.println("You reached the final room.");
-                System.out.println("Thanks for playing!");
-                System.exit(0);
-            }
         } else {
             System.out.println("\nWHOOSH! The portal sends you straight back. Try another path!");
         }

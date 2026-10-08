@@ -11,7 +11,7 @@ public class Map {
         r2 = new Room("ROOM 02", "THE SUNKEN ATLANTIS", "You suddenly find yourself beneath the ocean, surrounded by the ruins of Atlantis.", "Type [take + item name] to pick up an item and add it to your inventory");
         r3 = new Room("ROOM 03", "THE FROZEN WASTELAND", "You end up in a frozen wasteland, surrounded by endless snow and towering walls of ice. A friendly yeti approaches you with a big smile and offers you a scoop of ice cream. Before you leave, the yeti tells you that you can always ask for help if you get lost or need guidance on your journey.", "Type [help] to see all available commands");
         r4 = new Room("ROOM 04", "THE ANCIENT PYRAMIDS", "You emerge inside an ancient pyramid, surrounded by hieroglyphs, statues and flickering torches. In the middle of the wall, a giant FALCON is carved within a large circle, surrounded by mysterious symbols.", "Type [take + item name] to pick up an item and add it to your inventory");
-        r5 = new Room("ROOM 05", "THE SPACE STATION", "You suddenly appear aboard a massive space station, floating silently above an unknown planet. The control panel demands a secret code to activate the ship's engines. You remember seeing three animals carved into the walls of different places throughout the maze. Could they hold the key to your escape?", "");
+        r5 = new Room("ROOM 05", "THE SPACE STATION", "You suddenly appear aboard a massive space station, floating silently above an unknown planet. The control panel demands a secret code to activate the ship's engines. You remember seeing three animals carved into the walls of different places throughout the maze. Could they hold the key to your escape?", "Hint: Type the 3 animals in the correct order that you discovered them");
         r6 = new Room("ROOM 06", "THE JUNGLE TEMPLE", "You stumble into a forgotten temple, hidden deep within a wild jungle of vines and ancient ruins. The entrance is shaped like a giant MONKEY head, with its mouth wide open, forming the gateway into the temple.", "Type [take + item name] to pick up an item and add it to your inventory");
         r7 = new Room("ROOM 07", "THE JURASSIC WORLD", "You step into a prehistoric jungle, where towering trees surround you and dinosaurs roar in the distance.", "Type [take + item name] to pick up an item and add it to your inventory");
         r8 = new Room("ROOM 08", "THE ENCHANTED FOREST", "You wander into an enchanted forest, where glowing plants and strange creatures surround you.", "Type [eat + food name] to eat food and restore your strength");
@@ -76,7 +76,7 @@ public class Map {
 
     }
 //gets start room
-    public Room getStartRoom() {
-        return startRoom;
+   public Room getStartRoom() {
+       return startRoom;
     }
 }
