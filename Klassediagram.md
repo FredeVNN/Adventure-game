@@ -242,7 +242,7 @@ classDiagram
     Adventure ..> UserInterface
 
 %% UserInterface gemmer og bruger et Adventure-objekt
-    UserInterface --> Adventure
+    UserInterface "1" --> "1" Adventure
 
 %% --> betyder en association mellem to klasser
 %% Adventure har et Map og en Player
@@ -294,12 +294,12 @@ classDiagram
     Adventure ..> AttackOutcome
 
 %% EatOutcome indeholder et EatResult
-    EatOutcome --> "1" EatResult
+    EatOutcome "1" --> "1" EatResult
 
 %% AttackOutcome indeholder spillerens resultat
 %% og hvis enemy slår igen også resultatet af modangrebet
     AttackOutcome --> "1..2" AttackResult
 
 %% AttackOutcome kan indeholde den fjende der blev angrebet
-    AttackOutcome --> "0..1" Enemy
+    AttackOutcome "1" --> "0..1" Enemy
 ```
