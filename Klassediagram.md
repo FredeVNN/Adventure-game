@@ -228,32 +228,78 @@ classDiagram
         EQUIPPED
     }
 
+%% <|-- betyder arv: Klassen til venstre er superklassen
     Item <|-- Food
     Item <|-- Weapon
     Weapon <|-- MeleeWeapon
     Weapon <|-- RangedWeapon
 
-    Main ..> Adventure : creates
-    Adventure *-- Map : owns
-    Adventure *-- Player : owns
-    Adventure ..> UserInterface : creates
-    UserInterface --> Adventure : controls
+%% ..> betyder en midlertidig afhængighed
+%% Main opretter et Adventure-objekt
+    Main ..> Adventure
 
-    Map *-- "9" Room : creates
-    Room --> "0..4" Room : connected to
-    Room --> "0..*" Item : contains
-    Room --> "0..*" Enemy : contains
+%% Adventure opretter UserInterface
+    Adventure ..> UserInterface
 
-    Player --> "1" Room : current room
-    Player --> "0..*" Item : inventory
-    Player --> "0..1" Weapon : equipped weapon
+%% UserInterface gemmer og bruger et Adventure-objekt
+    UserInterface --> Adventure
 
-    Enemy --> "1" Weapon : uses
-    Enemy --> "1" Room : located in
-    Enemy ..> Player : attacks
+%% --> betyder en association mellem to klasser
+%% Adventure har et Map og en Player
+    Adventure "1" --> "1" Map
+    Adventure "1" --> "1" Player
 
-    AttackOutcome --> AttackResult
-    AttackOutcome --> "0..1" Enemy
-    EatOutcome --> EatResult
+%% Map opretter og gemmer spillets ni rum
+    Map "1" --> "9" Room
+
+%% Et rum kan være forbundet til mellem nul og fire andre rum
+    Room "1" --> "0..4" Room
+
+%% Et rum kan indeholde nul eller flere items
+    Room "1" --> "0..*" Item
+
+%% Et rum kan indeholde nul eller flere enemies
+    Room "1" --> "0..*" Enemy
+
+%% Player befinder sig altid i præcis et rum ad gangen
+    Player "1" --> "1" Room
+
+%% Player kan bære nul eller flere items
+    Player "1" --> "0..*" Item
+
+%% Player kan have nul eller et weapon equipped
+    Player "1" --> "0..1" Weapon
+
+%% En enemy befinder sig i et rum ad gangen
+    Enemy "1" --> "1" Room
+
+%% En enemy har altid præcis et weapon
+    Enemy "1" --> "1" Weapon
+
+%% Enemy bruger Player som parameter når den angriber
+    Enemy ..> Player
+
+%% Player returnerer EatOutcome fra metoden eat
+    Player ..> EatOutcome
+
+%% Player returnerer EquipResult fra metoden equip
     Player ..> EquipResult
+
+%% Player returnerer AttackOutcome fra metoden attack
+    Player ..> AttackOutcome
+
+%% Adventure sender resultaterne videre til UserInterface
+    Adventure ..> EatOutcome
+    Adventure ..> EquipResult
+    Adventure ..> AttackOutcome
+
+%% EatOutcome indeholder et EatResult
+    EatOutcome --> "1" EatResult
+
+%% AttackOutcome indeholder spillerens resultat
+%% og hvis enemy slår igen også resultatet af modangrebet
+    AttackOutcome --> "1..2" AttackResult
+
+%% AttackOutcome kan indeholde den fjende der blev angrebet
+    AttackOutcome --> "0..1" Enemy
 ```
